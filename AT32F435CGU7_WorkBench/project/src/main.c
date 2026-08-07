@@ -26,14 +26,19 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "at32f435_437_wk_config.h"
+#include "wk_exint.h"
+#include "wk_spi.h"
+#include "wk_tmr.h"
 #include "wk_usart.h"
 #include "wk_dma.h"
+#include "wk_gpio.h"
 #include "wk_system.h"
 
 /* private includes ----------------------------------------------------------*/
 /* add user code begin private includes */
 #include "imu_task.h"
 #include "rtthread.h"
+#include "lsm6dsr.h"
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
@@ -67,10 +72,11 @@ void thread_init()
 {
 	__disable_irq();
 	imu_task_init();
+	Sensor_Init();
 	__enable_irq();
 }
 
-int j = 0;
+uint8_t all_init = 0;
 
 /* add user code end function prototypes */
 
@@ -104,6 +110,9 @@ int main(void)
   /* nvic config. */
   wk_nvic_config();
 
+  /* init gpio function. */
+  wk_gpio_config();
+
   /* init dma1 channel1 */
   wk_dma1_channel1_init();
   /* config dma channel transfer parameter */
@@ -124,11 +133,45 @@ int main(void)
                         DMA1_CHANNEL2_BUFFER_SIZE);
   dma_channel_enable(DMA1_CHANNEL2, TRUE);
 
+  /* init dma1 channel5 */
+  wk_dma1_channel5_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA1_CHANNEL5, 
+                        (uint32_t)&SPI1->dt, 
+                        DMA1_CHANNEL5_MEMORY_BASE_ADDR, 
+                        DMA1_CHANNEL5_BUFFER_SIZE);
+  dma_channel_enable(DMA1_CHANNEL5, TRUE);
+
+  /* init dma1 channel6 */
+  wk_dma1_channel6_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA1_CHANNEL6, 
+                        (uint32_t)&SPI1->dt, 
+                        DMA1_CHANNEL6_MEMORY_BASE_ADDR, 
+                        DMA1_CHANNEL6_BUFFER_SIZE);
+  dma_channel_enable(DMA1_CHANNEL6, TRUE);
+
   /* init usart1 function. */
   wk_usart1_init();
 
+  /* init spi1 function. */
+  wk_spi1_init();
+
+  /* init exint function. */
+  wk_exint_config();
+
+  /* init tmr2 function. */
+  wk_tmr2_init();
+
   /* add user code begin 2 */
+	dma_channel_enable(DMA1_CHANNEL5, FALSE);
+	dma_channel_enable(DMA1_CHANNEL6, FALSE);
+	
+	LSM6DSR_Init();
 	thread_init();
+	all_init = 1;
   /* add user code end 2 */
 
   while(1)

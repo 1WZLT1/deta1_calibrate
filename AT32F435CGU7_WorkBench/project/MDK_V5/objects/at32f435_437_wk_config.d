@@ -13,10 +13,13 @@
 .\objects\at32f435_437_wk_config.o: ..\inc\at32f435_437_conf.h
 .\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_crm.h
 .\objects\at32f435_437_wk_config.o: ..\..\libraries\cmsis\cm4\device_support\at32f435_437.h
+.\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_tmr.h
 .\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_gpio.h
 .\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_usart.h
 .\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_pwc.h
+.\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_spi.h
 .\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_dma.h
-.\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_debug.h
 .\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_flash.h
+.\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_exint.h
 .\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_misc.h
+.\objects\at32f435_437_wk_config.o: ..\..\libraries\drivers\inc\at32f435_437_scfg.h

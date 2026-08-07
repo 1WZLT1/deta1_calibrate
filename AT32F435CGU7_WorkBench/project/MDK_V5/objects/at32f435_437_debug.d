@@ -11,6 +11,7 @@
 .\objects\at32f435_437_debug.o: ..\..\libraries\cmsis\cm4\device_support\system_at32f435_437.h
 .\objects\at32f435_437_debug.o: ..\..\libraries\drivers\inc\at32f435_437_def.h
 .\objects\at32f435_437_debug.o: ..\inc\at32f435_437_conf.h
+.\objects\at32f435_437_debug.o: ..\..\libraries\drivers\inc\at32f435_437_tmr.h
 .\objects\at32f435_437_debug.o: ..\..\libraries\drivers\inc\at32f435_437_gpio.h
 .\objects\at32f435_437_debug.o: ..\..\libraries\drivers\inc\at32f435_437_usart.h
 .\objects\at32f435_437_debug.o: ..\..\libraries\drivers\inc\at32f435_437_pwc.h

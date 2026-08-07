@@ -28,12 +28,17 @@
 #include "at32f435_437_int.h"
 /* private includes ----------------------------------------------------------*/
 /* add user code begin private includes */
-
+#include "imu_task.h"
+#include "rtthread.h"
+#include "imu_task.h"
+#include "rtio.h"
+#include "LSM6DSR.h"
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
 /* add user code begin private typedef */
-
+extern rtio_t  rtio_spi1;
+extern uint8_t all_init;
 /* add user code end private typedef */
 
 /* private define ------------------------------------------------------------*/
@@ -91,13 +96,13 @@ void NMI_Handler(void)
 //{
 //  /* add user code begin HardFault_IRQ 0 */
 
-////  /* add user code end HardFault_IRQ 0 */
+//////////  /* add user code end HardFault_IRQ 0 */
 //  /* go to infinite loop when hard fault exception occurs */
 //  while (1)
 //  {
 //    /* add user code begin W1_HardFault_IRQ 0 */
 
-////    /* add user code end W1_HardFault_IRQ 0 */
+//////////    /* add user code end W1_HardFault_IRQ 0 */
 //  }
 //}
 
@@ -197,10 +202,10 @@ void DebugMon_Handler(void)
 //{
 //  /* add user code begin PendSV_IRQ 0 */
 
-////  /* add user code end PendSV_IRQ 0 */
+//////////  /* add user code end PendSV_IRQ 0 */
 //  /* add user code begin PendSV_IRQ 1 */
 
-////  /* add user code end PendSV_IRQ 1 */
+//////////  /* add user code end PendSV_IRQ 1 */
 //}
 
 /**
@@ -212,13 +217,55 @@ void DebugMon_Handler(void)
 //{
 //  /* add user code begin SysTick_IRQ 0 */
 
-////  /* add user code end SysTick_IRQ 0 */
+//////////  /* add user code end SysTick_IRQ 0 */
 
 
 //  /* add user code begin SysTick_IRQ 1 */
 
-////  /* add user code end SysTick_IRQ 1 */
+//////////  /* add user code end SysTick_IRQ 1 */
 //}
+
+/**
+  * @brief  this function handles EXINT Line [9:5] handler.
+  * @param  none
+  * @retval none
+  */
+void EXINT9_5_IRQHandler(void)
+{
+  /* add user code begin EXINT9_5_IRQ 0 */
+	rt_interrupt_enter();
+	exint_flag_clear(EXINT_LINE_6);	
+	if(all_init == 1)LSM6DSR_callback(&rtio_spi1);
+	rt_interrupt_leave();
+  /* add user code end EXINT9_5_IRQ 0 */
+  /* add user code begin EXINT9_5_IRQ 1 */
+  /* add user code end EXINT9_5_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles TMR2 handler.
+  * @param  none
+  * @retval none
+  */
+void TMR2_GLOBAL_IRQHandler(void)
+{
+  /* add user code begin TMR2_GLOBAL_IRQ 0 */
+	if(TMR2->ists & 0x01)
+	{
+		rt_interrupt_enter();
+		IMU_Handler();
+		/*Moderately increase the data request frequency to compensate for the I2C wait time and keep the received data rate around 100 Hz.*/
+		
+		TMR2->ists &= ~(0x01);
+		rt_interrupt_leave();
+	}	
+  /* add user code end TMR2_GLOBAL_IRQ 0 */
+
+
+  /* add user code begin TMR2_GLOBAL_IRQ 1 */
+
+  /* add user code end TMR2_GLOBAL_IRQ 1 */
+}
 
 /**
   * @brief  this function handles DMA1 Channel 1 handler.
@@ -248,6 +295,69 @@ void DMA1_Channel2_IRQHandler(void)
   /* add user code begin DMA1_Channel2_IRQ 1 */
 
   /* add user code end DMA1_Channel2_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles DMA1 Channel 5 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA1_Channel5_IRQHandler(void)
+{
+  /* add user code begin DMA1_Channel5_IRQ 0 */
+	if(DMA1->sts_bit.fdtf5 == 1)
+	{
+		rt_interrupt_enter();
+		
+		dma_flag_clear(DMA1_FDT5_FLAG);
+		dma_flag_clear(DMA1_GL5_FLAG);
+		
+		rtio_node_t *node = rtio_spi1.current_node;
+		if(node != NULL)
+		{
+			if(rtio_spi1.current_node->Device_Name == LSM6DSR_E)
+			{
+				LSM6DSR_CS_disenable;
+				
+				rtio_node_rx_t dev;
+				dev.Device_Name = LSM6DSR_E;
+				rt_memcpy(&dev.rx,&LSM6DR_Data_Receive,sizeof(LSM6DR_Data_Receive));
+				rt_mq_send(sensor_cqe_mq,&dev, sizeof(rtio_node_rx_t));
+			}
+
+			rtio_spi1.current_node = NULL;
+			rtio_release(&rtio_spi1,node);
+			rtio_spi1.Dev_busy_State = Dev_IDLE; 
+		}
+		
+		dma_channel_enable(DMA1_CHANNEL5, FALSE);
+		rt_interrupt_leave();
+	}
+  /* add user code end DMA1_Channel5_IRQ 0 */
+  /* add user code begin DMA1_Channel5_IRQ 1 */
+
+  /* add user code end DMA1_Channel5_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles DMA1 Channel 6 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA1_Channel6_IRQHandler(void)
+{
+  /* add user code begin DMA1_Channel6_IRQ 0 */
+	if(DMA1->sts_bit.fdtf6 == 1)
+	{
+		rt_interrupt_enter();
+		dma_flag_clear(DMA1_FDT6_FLAG);
+		dma_channel_enable(DMA1_CHANNEL6, FALSE);
+		rt_interrupt_leave();
+	}
+  /* add user code end DMA1_Channel6_IRQ 0 */
+  /* add user code begin DMA1_Channel6_IRQ 1 */
+
+  /* add user code end DMA1_Channel6_IRQ 1 */
 }
 
 /* add user code begin 1 */

@@ -18,15 +18,41 @@
     </CRM>
     <DEBUG>
         <Mode>
-            <ModeSub name="Debug interface" value="JTAG (5pin)"/>
+            <ModeSub name="Debug interface" value=""/>
         </Mode>
     </DEBUG>
+    <EXINT>
+        <Mode>
+            <ModeSub name="EXINT6" value="TRUE"/>
+        </Mode>
+    </EXINT>
+    <SPI1>
+        <Mode>
+            <ModeSub name="Mode" value="Full_Duplex_Master"/>
+        </Mode>
+        <Parameters>
+            <ParametersSub name="TransmissionMode" value="SPI_TRANSMIT_FULL_DUPLEX"/>
+            <ParametersSub name="Mode" value="SPI_MODE_MASTER"/>
+            <ParametersSub name="FirstBit" value="SPI_FIRST_BIT_MSB"/>
+            <ParametersSub name="ClkDivision" value="SPI_MCLK_DIV_16"/>
+            <ParametersSub name="ClockFrequency" value="9000000"/>
+        </Parameters>
+    </SPI1>
     <SYSTEM>
         <Mode>
             <ModeSub name="Time_Base" value=""/>
             <ModeSub name="SysTick_Interrupt" value="TRUE"/>
         </Mode>
     </SYSTEM>
+    <TMR2>
+        <Mode>
+            <ModeSub name="Activated" value="TRUE"/>
+        </Mode>
+        <Parameters>
+            <ParametersSub name="DividerValue" value="287"/>
+            <ParametersSub name="Period" value="2499"/>
+        </Parameters>
+    </TMR2>
     <USART1>
         <Mode>
             <ModeSub name="Mode" value="Asynchronous"/>
@@ -37,6 +63,18 @@
         </Parameters>
     </USART1>
     <DMA>
+        <SPI1_RX>
+            <ParametersSub name="Instance" value="DMA1_Channel5"/>
+            <ParametersSub name="Priority" value="DMA_PRIORITY_VERY_HIGH"/>
+            <ParametersSub name="SyncRequestCount" value="1"/>
+            <ParametersSub name="RequestCount" value="1"/>
+        </SPI1_RX>
+        <SPI1_TX>
+            <ParametersSub name="Instance" value="DMA1_Channel6"/>
+            <ParametersSub name="Priority" value="DMA_PRIORITY_VERY_HIGH"/>
+            <ParametersSub name="SyncRequestCount" value="1"/>
+            <ParametersSub name="RequestCount" value="1"/>
+        </SPI1_TX>
         <USART1_RX>
             <ParametersSub name="Instance" value="DMA1_Channel1"/>
             <ParametersSub name="SyncRequestCount" value="1"/>
@@ -53,9 +91,14 @@
         <SysTick_Handler>1;0;0;0;0</SysTick_Handler>
         <FLASH_IRQHandler>0;0;0;0;0</FLASH_IRQHandler>
         <CRM_IRQHandler>0;0;0;0;0</CRM_IRQHandler>
+        <EXINT9_5_IRQHandler>1;0;0;0;0</EXINT9_5_IRQHandler>
+        <TMR2_GLOBAL_IRQHandler>1;0;0;0;0</TMR2_GLOBAL_IRQHandler>
+        <SPI1_IRQHandler>0;0;0;0;0</SPI1_IRQHandler>
         <USART1_IRQHandler>0;0;0;0;0</USART1_IRQHandler>
         <DMA1_Channel1_IRQHandler>1;0;0;0;0</DMA1_Channel1_IRQHandler>
         <DMA1_Channel2_IRQHandler>1;0;0;0;0</DMA1_Channel2_IRQHandler>
+        <DMA1_Channel5_IRQHandler>1;0;0;0;0</DMA1_Channel5_IRQHandler>
+        <DMA1_Channel6_IRQHandler>1;0;0;0;0</DMA1_Channel6_IRQHandler>
         <DVP_IRQHandler>0;0;0;0;0</DVP_IRQHandler>
         <FPU_IRQHandler>0;0;0;0;0</FPU_IRQHandler>
         <DMAMUX_IRQHandler>0;0;0;0;0</DMAMUX_IRQHandler>
@@ -86,13 +129,13 @@
     <PINInfo>
         <PinSub pinname="PH0/HEXT_IN" signalname="CRM_HEXT_IN" signaltype="2"/>
         <PinSub pinname="PH1/HEXT_OUT" signalname="CRM_HEXT_OUT" signaltype="2"/>
+        <PinSub pinname="PA6" signalname="EXINT6" signaltype="3"/>
         <PinSub pinname="PA9" signalname="USART1_TX" signaltype="2"/>
         <PinSub pinname="PA10" signalname="USART1_RX" signaltype="2"/>
-        <PinSub pinname="PA13" signalname="DEBUG_JTMS_SWDIO" signaltype="2"/>
-        <PinSub pinname="PA14" signalname="DEBUG_JTCK_SWCLK" signaltype="2"/>
-        <PinSub pinname="PA15" signalname="DEBUG_JTDI" signaltype="2"/>
-        <PinSub pinname="PB3" signalname="DEBUG_JTDO" signaltype="2"/>
-        <PinSub pinname="PB4" signalname="DEBUG_NJTRST" signaltype="2"/>
+        <PinSub pinname="PA15" signalname="GPIO_Output" signaltype="3"/>
+        <PinSub pinname="PB3" signalname="SPI1_SCK" signaltype="2"/>
+        <PinSub pinname="PB4" signalname="SPI1_MISO" signaltype="2"/>
+        <PinSub pinname="PB5" signalname="SPI1_MOSI" signaltype="2"/>
     </PINInfo>
     <ProjectInfomation>
         <ProjectName>AT32F435CGU7_WorkBench</ProjectName>

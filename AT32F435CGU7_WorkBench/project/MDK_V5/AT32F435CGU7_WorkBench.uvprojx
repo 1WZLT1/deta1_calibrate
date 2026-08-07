@@ -323,7 +323,7 @@
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>AT32F435CGU7,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc</IncludePath>
+              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -411,6 +411,26 @@
               <FileType>1</FileType>
               <FilePath>..\src\wk_dma.c</FilePath>
             </File>
+            <File>
+              <FileName>wk_tmr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\wk_tmr.c</FilePath>
+            </File>
+            <File>
+              <FileName>wk_exint.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\wk_exint.c</FilePath>
+            </File>
+            <File>
+              <FileName>wk_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\wk_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>wk_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src\wk_gpio.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -420,6 +440,11 @@
               <FileName>at32f435_437_crm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\src\at32f435_437_crm.c</FilePath>
+            </File>
+            <File>
+              <FileName>at32f435_437_tmr.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\src\at32f435_437_tmr.c</FilePath>
             </File>
             <File>
               <FileName>at32f435_437_gpio.c</FileName>
@@ -437,14 +462,14 @@
               <FilePath>..\..\libraries\drivers\src\at32f435_437_pwc.c</FilePath>
             </File>
             <File>
+              <FileName>at32f435_437_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\src\at32f435_437_spi.c</FilePath>
+            </File>
+            <File>
               <FileName>at32f435_437_dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\src\at32f435_437_dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>at32f435_437_debug.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\libraries\drivers\src\at32f435_437_debug.c</FilePath>
             </File>
             <File>
               <FileName>at32f435_437_flash.c</FileName>
@@ -452,9 +477,19 @@
               <FilePath>..\..\libraries\drivers\src\at32f435_437_flash.c</FilePath>
             </File>
             <File>
+              <FileName>at32f435_437_exint.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\src\at32f435_437_exint.c</FilePath>
+            </File>
+            <File>
               <FileName>at32f435_437_misc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\libraries\drivers\src\at32f435_437_misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>at32f435_437_scfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\libraries\drivers\src\at32f435_437_scfg.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -474,12 +509,42 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>device_serives_layer</GroupName>
+          <Files>
+            <File>
+              <FileName>spi_serve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Services_Layer\src\spi_serve.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>device_application_layer</GroupName>
           <Files>
             <File>
               <FileName>imu_task.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Device_Application_Layer\src\imu_task.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>device_hardeware_layer</GroupName>
+          <Files>
+            <File>
+              <FileName>sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\sensor.c</FilePath>
+            </File>
+            <File>
+              <FileName>LSM6DSR.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\LSM6DSR\LSM6DSR.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\rtio\src\rtio.c</FilePath>
             </File>
           </Files>
         </Group>

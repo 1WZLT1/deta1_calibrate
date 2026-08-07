@@ -179,8 +179,17 @@ void wk_periph_clock_config(void)
   /* enable dma1 periph clock */
   crm_periph_clock_enable(CRM_DMA1_PERIPH_CLOCK, TRUE);
 
+  /* enable tmr2 periph clock */
+  crm_periph_clock_enable(CRM_TMR2_PERIPH_CLOCK, TRUE);
+
   /* enable usart1 periph clock */
   crm_periph_clock_enable(CRM_USART1_PERIPH_CLOCK, TRUE);
+
+  /* enable spi1 periph clock */
+  crm_periph_clock_enable(CRM_SPI1_PERIPH_CLOCK, TRUE);
+
+  /* enable scfg periph clock */
+  crm_periph_clock_enable(CRM_SCFG_PERIPH_CLOCK, TRUE);
 }
 
 /**
@@ -199,8 +208,12 @@ void wk_nvic_config(void)
   NVIC_SetPriority(DebugMonitor_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
   NVIC_SetPriority(PendSV_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 15, 0));
   NVIC_SetPriority(SysTick_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
+  nvic_irq_enable(EXINT9_5_IRQn, 0, 0);
+  nvic_irq_enable(TMR2_GLOBAL_IRQn, 0, 0);
   nvic_irq_enable(DMA1_Channel1_IRQn, 0, 0);
   nvic_irq_enable(DMA1_Channel2_IRQn, 0, 0);
+  nvic_irq_enable(DMA1_Channel5_IRQn, 0, 0);
+  nvic_irq_enable(DMA1_Channel6_IRQn, 0, 0);
 }
 
 /* add user code begin 1 */
