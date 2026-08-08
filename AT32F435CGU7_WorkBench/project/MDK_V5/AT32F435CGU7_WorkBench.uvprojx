@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>AT32F435CGU7,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc</IncludePath>
+              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc;..\..\Tool\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -516,11 +516,26 @@
               <FileType>1</FileType>
               <FilePath>..\..\Device_Services_Layer\src\spi_serve.c</FilePath>
             </File>
+            <File>
+              <FileName>FDILink.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Application_Layer\src\FDILink.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart_serve.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Services_Layer\src\uart_serve.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>device_application_layer</GroupName>
           <Files>
+            <File>
+              <FileName>FDILinkManager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Tool\src\FDILinkManager.c</FilePath>
+            </File>
             <File>
               <FileName>imu_task.c</FileName>
               <FileType>1</FileType>
@@ -545,6 +560,21 @@
               <FileName>rtio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Device_Hardware_Layer\rtio\src\rtio.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>tool</GroupName>
+          <Files>
+            <File>
+              <FileName>Verify_Tool.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Tool\src\Verify_Tool.c</FilePath>
+            </File>
+            <File>
+              <FileName>Queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Tool\src\Queue.c</FilePath>
             </File>
           </Files>
         </Group>

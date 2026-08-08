@@ -1,5 +1,6 @@
 #include "imu_task.h"
 #include "rtthread.h"
+#include "FDIlinkManager.h"
 
 #define IMU_PRIORITY	    9
 
@@ -14,6 +15,7 @@ static void Imu_Task_Function(void* parameter)
 	while(1)
 	{
 		rt_sem_take(&imuSensor, RT_WAITING_FOREVER);
+		FDILinkSend_RAWData(111);
 	}
 }
 
@@ -24,6 +26,8 @@ void IMU_Handler()
 		return;
 	rt_sem_release(&imuSensor);	
 }
+
+extern void FDILinkSendCode(void *unused);
 
 void imu_task_init()
 {

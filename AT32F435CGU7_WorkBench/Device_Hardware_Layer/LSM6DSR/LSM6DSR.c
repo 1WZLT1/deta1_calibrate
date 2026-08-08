@@ -49,8 +49,6 @@ void LSM6DSR_Conversion(uint8_t *Data_Receive)
 	int primask = __get_PRIMASK();
 	__set_PRIMASK(1);
 	
-//	now_us = Micros();
-//	Interval_us = now_us -  last_us;
   LSM6DSR.Temp     = 25.0f     + (LSM6DSR_GetS16(&Data_Receive[0]) / 256.0f);
   LSM6DSR.Accs[0]  = AccScale  *  LSM6DSR_GetS16(&Data_Receive[8]);
   LSM6DSR.Accs[1]  = AccScale  *  LSM6DSR_GetS16(&Data_Receive[10]);
@@ -69,13 +67,11 @@ void LSM6DSR_Conversion(uint8_t *Data_Receive)
   RawBuffer_Input(&LSM6DSR.BufGyroZ, LSM6DSR.Gyros[2]);
 
   RawBuffer_Input(&LSM6DSR.BufTemp,  LSM6DSR.Temp);
-//	last_us = now_us;
 	__set_PRIMASK(primask);
 }
 
 int LSM6DSR_Decode(LSM6DSR_Status_Type* LSM6DSR)
 {
-//	LSM6DSR->lastUpdate = Micros(); 
 	int primask = __get_PRIMASK();
 	__set_PRIMASK(1);
 	LSM6DSR->Accs[0] = RawBuffer_Output(&LSM6DSR->BufAccX);

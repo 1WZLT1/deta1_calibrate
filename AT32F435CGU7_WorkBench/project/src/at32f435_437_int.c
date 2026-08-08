@@ -33,6 +33,7 @@
 #include "imu_task.h"
 #include "rtio.h"
 #include "LSM6DSR.h"
+#include "FDILinkManager.h"
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
@@ -96,13 +97,13 @@ void NMI_Handler(void)
 //{
 //  /* add user code begin HardFault_IRQ 0 */
 
-//////////  /* add user code end HardFault_IRQ 0 */
+////////////  /* add user code end HardFault_IRQ 0 */
 //  /* go to infinite loop when hard fault exception occurs */
 //  while (1)
 //  {
 //    /* add user code begin W1_HardFault_IRQ 0 */
 
-//////////    /* add user code end W1_HardFault_IRQ 0 */
+////////////    /* add user code end W1_HardFault_IRQ 0 */
 //  }
 //}
 
@@ -193,36 +194,36 @@ void DebugMon_Handler(void)
   /* add user code end DebugMonitor_IRQ 1 */
 }
 
-/**
-  * @brief  this function handles pendsv_handler exception.
-  * @param  none
-  * @retval none
-  */
+///**
+//  * @brief  this function handles pendsv_handler exception.
+//  * @param  none
+//  * @retval none
+//  */
 //void PendSV_Handler(void)
 //{
 //  /* add user code begin PendSV_IRQ 0 */
 
-//////////  /* add user code end PendSV_IRQ 0 */
+////////////  /* add user code end PendSV_IRQ 0 */
 //  /* add user code begin PendSV_IRQ 1 */
 
-//////////  /* add user code end PendSV_IRQ 1 */
+////////////  /* add user code end PendSV_IRQ 1 */
 //}
 
-/**
-  * @brief  this function handles systick handler.
-  * @param  none
-  * @retval none
-  */
+///**
+//  * @brief  this function handles systick handler.
+//  * @param  none
+//  * @retval none
+//  */
 //void SysTick_Handler(void)
 //{
 //  /* add user code begin SysTick_IRQ 0 */
 
-//////////  /* add user code end SysTick_IRQ 0 */
+////////////  /* add user code end SysTick_IRQ 0 */
 
 
 //  /* add user code begin SysTick_IRQ 1 */
 
-//////////  /* add user code end SysTick_IRQ 1 */
+////////////  /* add user code end SysTick_IRQ 1 */
 //}
 
 /**
@@ -290,7 +291,15 @@ void DMA1_Channel1_IRQHandler(void)
 void DMA1_Channel2_IRQHandler(void)
 {
   /* add user code begin DMA1_Channel2_IRQ 0 */
-
+	if(DMA1->sts_bit.fdtf2 == 1)
+	{
+		rt_interrupt_enter();
+		
+		dma_flag_clear(DMA1_FDT2_FLAG);
+		dma_channel_enable(DMA1_CHANNEL2, FALSE);
+		busy_flag = 0;
+		rt_interrupt_leave();
+	}
   /* add user code end DMA1_Channel2_IRQ 0 */
   /* add user code begin DMA1_Channel2_IRQ 1 */
 

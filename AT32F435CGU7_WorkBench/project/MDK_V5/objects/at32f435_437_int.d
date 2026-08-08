@@ -49,3 +49,6 @@
 .\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\rtio\inc\util.h
 .\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\LSM6DSR\LSM6DSR.h
 .\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\sensor.h
+.\objects\at32f435_437_int.o: ..\..\Tool\inc\FDILinkManager.h
+.\objects\at32f435_437_int.o: ..\..\Device_Services_Layer\inc\uart_serve.h
+.\objects\at32f435_437_int.o: ..\..\Tool\inc\queue.h

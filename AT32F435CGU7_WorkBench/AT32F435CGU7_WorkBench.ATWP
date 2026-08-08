@@ -130,12 +130,12 @@
         <PinSub pinname="PH0/HEXT_IN" signalname="CRM_HEXT_IN" signaltype="2"/>
         <PinSub pinname="PH1/HEXT_OUT" signalname="CRM_HEXT_OUT" signaltype="2"/>
         <PinSub pinname="PA6" signalname="EXINT6" signaltype="3"/>
-        <PinSub pinname="PA9" signalname="USART1_TX" signaltype="2"/>
-        <PinSub pinname="PA10" signalname="USART1_RX" signaltype="2"/>
         <PinSub pinname="PA15" signalname="GPIO_Output" signaltype="3"/>
         <PinSub pinname="PB3" signalname="SPI1_SCK" signaltype="2"/>
         <PinSub pinname="PB4" signalname="SPI1_MISO" signaltype="2"/>
         <PinSub pinname="PB5" signalname="SPI1_MOSI" signaltype="2"/>
+        <PinSub pinname="PB6" signalname="USART1_TX" signaltype="2"/>
+        <PinSub pinname="PB7" signalname="USART1_RX" signaltype="2"/>
     </PINInfo>
     <ProjectInfomation>
         <ProjectName>AT32F435CGU7_WorkBench</ProjectName>

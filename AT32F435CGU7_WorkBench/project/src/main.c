@@ -39,6 +39,7 @@
 #include "imu_task.h"
 #include "rtthread.h"
 #include "lsm6dsr.h"
+#include "FDILinkManager.h"
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
@@ -71,6 +72,7 @@ void SystemCoreClockUpdate(void)
 void thread_init()
 {
 	__disable_irq();
+	FDILinkManager_Init();
 	imu_task_init();
 	Sensor_Init();
 	__enable_irq();
@@ -166,6 +168,9 @@ int main(void)
   wk_tmr2_init();
 
   /* add user code begin 2 */
+	dma_channel_enable(DMA1_CHANNEL1, FALSE);
+	dma_channel_enable(DMA1_CHANNEL2, FALSE);
+	
 	dma_channel_enable(DMA1_CHANNEL5, FALSE);
 	dma_channel_enable(DMA1_CHANNEL6, FALSE);
 	

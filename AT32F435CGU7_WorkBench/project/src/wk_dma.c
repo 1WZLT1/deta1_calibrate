@@ -107,7 +107,7 @@ void wk_dma1_channel2_init(void)
    *     --void DMA1_Channel2_IRQHandler(void)
    */ 
   /* add user code begin dma1_channel2 1 */
-
+	dma_interrupt_enable(DMA1_CHANNEL2,DMA_FDT_INT,TRUE);
   /* add user code end dma1_channel2 1 */
 }
 
