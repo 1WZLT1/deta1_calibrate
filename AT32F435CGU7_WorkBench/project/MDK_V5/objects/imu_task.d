@@ -1,5 +1,6 @@
 .\objects\imu_task.o: ..\..\Device_Application_Layer\src\imu_task.c
 .\objects\imu_task.o: ..\..\Device_Application_Layer\inc\imu_task.h
+.\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\imu_task.o: .\RTE\RTOS\rtconfig.h
 .\objects\imu_task.o: .\RTE\_AT32F435CGU7_WorkBench\RTE_Components.h
@@ -8,7 +9,6 @@
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtlibc.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\libc/libc_stat.h
-.\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\time.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\libc/libc_errno.h
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\errno.h
@@ -21,6 +21,13 @@
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtservice.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtm.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
+.\objects\imu_task.o: ..\..\Tool\inc\TD.h
+.\objects\imu_task.o: ..\..\Device_Hardware_Layer\sensor.h
+.\objects\imu_task.o: ..\..\Device_Hardware_Layer\LSM6DSR\LSM6DSR.h
+.\objects\imu_task.o: ..\..\Device_Hardware_Layer\rtio\inc\rtio.h
+.\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\objects\imu_task.o: ..\..\Device_Hardware_Layer\rtio\inc\util.h
 .\objects\imu_task.o: ..\..\Tool\inc\FDIlinkManager.h
 .\objects\imu_task.o: ..\..\Device_Services_Layer\inc\uart_serve.h
 .\objects\imu_task.o: ..\..\libraries\drivers\inc\at32f435_437_dma.h
@@ -46,3 +53,4 @@
 .\objects\imu_task.o: ..\..\libraries\drivers\inc\at32f435_437_misc.h
 .\objects\imu_task.o: ..\..\libraries\drivers\inc\at32f435_437_scfg.h
 .\objects\imu_task.o: ..\..\Tool\inc\queue.h
+.\objects\imu_task.o: ..\inc\at32f435_437_int.h

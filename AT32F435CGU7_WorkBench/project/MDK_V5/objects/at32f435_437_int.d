@@ -43,6 +43,7 @@
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtservice.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtm.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
+.\objects\at32f435_437_int.o: ..\..\Tool\inc\TD.h
 .\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\rtio\inc\rtio.h
 .\objects\at32f435_437_int.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\at32f435_437_int.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

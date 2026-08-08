@@ -53,6 +53,15 @@
             <ParametersSub name="Period" value="2499"/>
         </Parameters>
     </TMR2>
+    <TMR5>
+        <Mode>
+            <ModeSub name="Activated" value="TRUE"/>
+            <ModeSub name="Enable plus mode" value="TRUE"/>
+        </Mode>
+        <Parameters>
+            <ParametersSub name="DividerValue" value="287"/>
+        </Parameters>
+    </TMR5>
     <USART1>
         <Mode>
             <ModeSub name="Mode" value="Asynchronous"/>
@@ -95,6 +104,7 @@
         <TMR2_GLOBAL_IRQHandler>1;0;0;0;0</TMR2_GLOBAL_IRQHandler>
         <SPI1_IRQHandler>0;0;0;0;0</SPI1_IRQHandler>
         <USART1_IRQHandler>0;0;0;0;0</USART1_IRQHandler>
+        <TMR5_GLOBAL_IRQHandler>1;0;0;0;0</TMR5_GLOBAL_IRQHandler>
         <DMA1_Channel1_IRQHandler>1;0;0;0;0</DMA1_Channel1_IRQHandler>
         <DMA1_Channel2_IRQHandler>1;0;0;0;0</DMA1_Channel2_IRQHandler>
         <DMA1_Channel5_IRQHandler>1;0;0;0;0</DMA1_Channel5_IRQHandler>

@@ -1,6 +1,5 @@
 #include "LSM6DSR.h"
 
-
 #include "spi_serve.h"
 #include "at32f435_437_gpio.h"
 #include "at32f435_437_int.h" 
@@ -325,7 +324,7 @@ void LSM6DSR_Init()
 {
 	LSM6DR_Write_Reg(LSM6DSR_CTRL3_C,0x01,2);//rest
 	LSM6DR_Read_Reg(LSM6DSR_WHO_AM_I,&whoamI,2);
-	if(whoamI != LSM6DSR_ID)return;
+	//if(whoamI != LSM6DSR_ID)return;
 	LSM6DSR_I3C_Disable();
 	LSM6DR_SPI4Write();
 	LSM6DR_Updata();

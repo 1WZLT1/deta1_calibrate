@@ -51,6 +51,7 @@
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtservice.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtm.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
+.\objects\main.o: ..\..\Tool\inc\TD.h
 .\objects\main.o: ..\..\Device_Hardware_Layer\LSM6DSR\lsm6dsr.h
 .\objects\main.o: ..\..\Device_Hardware_Layer\rtio\inc\rtio.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

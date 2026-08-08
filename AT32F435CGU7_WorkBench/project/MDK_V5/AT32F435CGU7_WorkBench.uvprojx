@@ -576,6 +576,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Tool\src\Queue.c</FilePath>
             </File>
+            <File>
+              <FileName>TD.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Tool\src\TD.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

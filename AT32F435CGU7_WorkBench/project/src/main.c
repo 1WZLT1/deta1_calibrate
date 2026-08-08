@@ -72,9 +72,9 @@ void SystemCoreClockUpdate(void)
 void thread_init()
 {
 	__disable_irq();
-	FDILinkManager_Init();
 	imu_task_init();
 	Sensor_Init();
+	FDILinkManager_Init();
 	__enable_irq();
 }
 
@@ -166,6 +166,9 @@ int main(void)
 
   /* init tmr2 function. */
   wk_tmr2_init();
+
+  /* init tmr5 function. */
+  wk_tmr5_init();
 
   /* add user code begin 2 */
 	dma_channel_enable(DMA1_CHANNEL1, FALSE);

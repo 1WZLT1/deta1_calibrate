@@ -1,15 +1,13 @@
 #include "FDILinkManager.h"
 #include "queue.h"
-#include <stdint.h>
-#include <wk_dma.h>
 #include "FDILink.h"
+#include "uart_serve.h"
+#include "imu_task.h"
+
 #include "rtthread.h"
 
-#include "uart_serve.h"
-
-ALIGN(8)
-uint8_t fdilink_stack[512];
-static struct rt_thread fdilink_thread;
+#include <stdint.h>
+#include <wk_dma.h>
 
 #ifndef FDILINK_STNC_BUFEER_SIZE
 #define FDILINK_STNC_BUFEER_SIZE 400
@@ -54,16 +52,16 @@ FDILink_t FDILink_Handle;
 
 void FDILinkSend_RAWData(uint64_t time)
 {
-	FDIData.RawData.Accelerometer_X = 1;
-	FDIData.RawData.Accelerometer_Y = 2;
-	FDIData.RawData.Accelerometer_Z = 3;
-	FDIData.RawData.Gyroscope_X = 4;
-	FDIData.RawData.Gyroscope_Y = 5;
-	FDIData.RawData.Gyroscope_Z = 6;
-	FDIData.RawData.Magnetometer_X = 7;
-	FDIData.RawData.Magnetometer_Y = 8;
-	FDIData.RawData.Magnetometer_Z = 9;
-	FDIData.RawData.IMU_Temperature = 10;
+	FDIData.RawData.Accelerometer_X = imuData.raw_accs_1[0];
+	FDIData.RawData.Accelerometer_Y = imuData.raw_accs_1[1];
+	FDIData.RawData.Accelerometer_Z = imuData.raw_accs_1[2];
+	FDIData.RawData.Gyroscope_X = imuData.raw_gyros_1[0];
+	FDIData.RawData.Gyroscope_Y = imuData.raw_gyros_1[1];
+	FDIData.RawData.Gyroscope_Z = imuData.raw_gyros_1[2];
+	FDIData.RawData.Magnetometer_X = 0;
+	FDIData.RawData.Magnetometer_Y = 0;
+	FDIData.RawData.Magnetometer_Z = 0;
+	FDIData.RawData.IMU_Temperature = imuData.raw_temp_1;
 	FDIData.RawData.Timestamp = time;
 	
 	ALIGN(8) static uint8_t fdi_buffer[256];
@@ -118,7 +116,9 @@ void FDILinkSendCode(void *unused)
 	}
 }
 
-
+ALIGN(8)
+uint8_t Serial_Task_Stack[2048];
+static struct rt_thread Serial_Task;
 
 void FDILinkManager_Init(void)
 {
@@ -133,8 +133,7 @@ void FDILinkManager_Init(void)
 	
 	Queue_Init(&FDIData.TxQueue, &FDIData.TxQueueBuffer[0], 512);
 	
-	rt_thread_init(&fdilink_thread, "FDILinkManager", FDILinkSendCode, 0, fdilink_stack,sizeof(fdilink_stack), 9, 10);
-	rt_thread_startup(&fdilink_thread);
-	
+	rt_thread_init(&Serial_Task,"Serial_Task",FDILinkSendCode,NULL,&Serial_Task_Stack[0],sizeof(Serial_Task_Stack),9,100);
+	rt_thread_startup(&Serial_Task);
 }
 

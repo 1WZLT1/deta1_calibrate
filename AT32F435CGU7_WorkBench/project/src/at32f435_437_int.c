@@ -64,7 +64,19 @@ extern uint8_t all_init;
 
 /* private user code ---------------------------------------------------------*/
 /* add user code begin 0 */
-
+uint32_t Tick_Us_High = 0;
+uint8_t  tmr5_first_bk = 0;
+int64_t CortexM_Get_Us(void)
+{
+	while(1)
+	{
+		volatile uint32_t tick_0  = TMR5->cval;
+		volatile uint32_t tick_32 = Tick_Us_High;
+		if(tick_0 > TMR5->cval)
+			continue;
+		return ((int64_t) tick_32 << 32) | tick_0;
+	}
+}
 /* add user code end 0 */
 
 /* external variables ---------------------------------------------------------*/
@@ -97,13 +109,13 @@ void NMI_Handler(void)
 //{
 //  /* add user code begin HardFault_IRQ 0 */
 
-////////////  /* add user code end HardFault_IRQ 0 */
+//////////////  /* add user code end HardFault_IRQ 0 */
 //  /* go to infinite loop when hard fault exception occurs */
 //  while (1)
 //  {
 //    /* add user code begin W1_HardFault_IRQ 0 */
 
-////////////    /* add user code end W1_HardFault_IRQ 0 */
+//////////////    /* add user code end W1_HardFault_IRQ 0 */
 //  }
 //}
 
@@ -194,36 +206,36 @@ void DebugMon_Handler(void)
   /* add user code end DebugMonitor_IRQ 1 */
 }
 
-///**
-//  * @brief  this function handles pendsv_handler exception.
-//  * @param  none
-//  * @retval none
-//  */
+/**
+  * @brief  this function handles pendsv_handler exception.
+  * @param  none
+  * @retval none
+  */
 //void PendSV_Handler(void)
 //{
 //  /* add user code begin PendSV_IRQ 0 */
 
-////////////  /* add user code end PendSV_IRQ 0 */
+//////////////  /* add user code end PendSV_IRQ 0 */
 //  /* add user code begin PendSV_IRQ 1 */
 
-////////////  /* add user code end PendSV_IRQ 1 */
+//////////////  /* add user code end PendSV_IRQ 1 */
 //}
 
-///**
-//  * @brief  this function handles systick handler.
-//  * @param  none
-//  * @retval none
-//  */
+/**
+  * @brief  this function handles systick handler.
+  * @param  none
+  * @retval none
+  */
 //void SysTick_Handler(void)
 //{
 //  /* add user code begin SysTick_IRQ 0 */
 
-////////////  /* add user code end SysTick_IRQ 0 */
+//////////////  /* add user code end SysTick_IRQ 0 */
 
 
 //  /* add user code begin SysTick_IRQ 1 */
 
-////////////  /* add user code end SysTick_IRQ 1 */
+//////////////  /* add user code end SysTick_IRQ 1 */
 //}
 
 /**
@@ -269,6 +281,30 @@ void TMR2_GLOBAL_IRQHandler(void)
 }
 
 /**
+  * @brief  this function handles TMR5 handler.
+  * @param  none
+  * @retval none
+  */
+void TMR5_GLOBAL_IRQHandler(void)
+{
+  /* add user code begin TMR5_GLOBAL_IRQ 0 */
+	if(TMR5->ists & 0x01)
+	{
+		rt_interrupt_enter();
+		Tick_Us_High++;
+		if(!tmr5_first_bk)tmr5_first_bk = 1,Tick_Us_High -= 1;
+		TMR5->ists &= ~(0x01);
+		rt_interrupt_leave();
+	}
+  /* add user code end TMR5_GLOBAL_IRQ 0 */
+
+
+  /* add user code begin TMR5_GLOBAL_IRQ 1 */
+
+  /* add user code end TMR5_GLOBAL_IRQ 1 */
+}
+
+/**
   * @brief  this function handles DMA1 Channel 1 handler.
   * @param  none
   * @retval none
@@ -298,6 +334,7 @@ void DMA1_Channel2_IRQHandler(void)
 		dma_flag_clear(DMA1_FDT2_FLAG);
 		dma_channel_enable(DMA1_CHANNEL2, FALSE);
 		busy_flag = 0;
+		count = 0;
 		rt_interrupt_leave();
 	}
   /* add user code end DMA1_Channel2_IRQ 0 */

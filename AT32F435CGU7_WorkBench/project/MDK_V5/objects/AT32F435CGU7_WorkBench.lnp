@@ -32,6 +32,7 @@
 ".\objects\rtio.o"
 ".\objects\verify_tool.o"
 ".\objects\queue.o"
+".\objects\td.o"
 ".\objects\context_rvds.o"
 ".\objects\cpuport.o"
 ".\objects\clock.o"
