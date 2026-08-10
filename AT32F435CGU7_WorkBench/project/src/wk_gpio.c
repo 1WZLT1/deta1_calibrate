@@ -50,12 +50,12 @@ void wk_gpio_config(void)
   /* add user code end gpio_config 1 */
 
   /* gpio output config */
-  gpio_bits_reset(GPIOA, GPIO_PINS_15);
+  gpio_bits_reset(GPIOA, GPIO_PINS_11 | GPIO_PINS_15);
 
   gpio_init_struct.gpio_drive_strength = GPIO_DRIVE_STRENGTH_MODERATE;
   gpio_init_struct.gpio_out_type = GPIO_OUTPUT_PUSH_PULL;
   gpio_init_struct.gpio_mode = GPIO_MODE_OUTPUT;
-  gpio_init_struct.gpio_pins = GPIO_PINS_15;
+  gpio_init_struct.gpio_pins = GPIO_PINS_11 | GPIO_PINS_15;
   gpio_init_struct.gpio_pull = GPIO_PULL_NONE;
   gpio_init(GPIOA, &gpio_init_struct);
 

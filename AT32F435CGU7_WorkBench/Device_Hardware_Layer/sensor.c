@@ -2,6 +2,7 @@
 #include "rtio.h"
 
 #include "LSM6DSR.h"
+#include "xv7001.h"
 
 #define timeout_tick 50
 
@@ -17,7 +18,7 @@ uint8_t Sensor_Cqe_Task_Stack[512];
 static struct rt_thread Sensor_Cqe_Task;
 
 Rtio_Define_Pool(spi1,100,100);
-Rtio_Define_Pool(i2c2,200,100);
+Rtio_Define_Pool(spi2,100,100);
 
 void RawBuffer_Input(RawBuffer_t* buffer, float value)
 {
@@ -93,6 +94,11 @@ void Sensor_Cqe_Task_Function(void* parameter)
 		{
 			LSM6DSR_Conversion(dev.rx);
 		}
+		
+		if(dev.Device_Name == XV7001_E)
+		{
+			XV7001_Conversion(dev.rx);
+		}
 	}
 }
 
@@ -100,7 +106,7 @@ uint8_t sqe_init_ok = 0;
 void Sensor_Init()
 {
 	rtio_pool_init(spi1_sqe_pool,100,&rtio_spi1);
-	rtio_pool_init(i2c2_sqe_pool,200,&rtio_i2c2);
+	rtio_pool_init(spi2_sqe_pool,100,&rtio_spi2);
 	
 	sensor_sqe_mb = rt_mb_create("sensor_sqe_mq",8,RT_IPC_FLAG_FIFO);
 	rt_thread_init(&Sensor_Sqe_Task,"Sensor_Sqe_Task",Sensor_Sqe_Task_Function,NULL,&Sensor_Sqe_Task_Stack[0],sizeof(Sensor_Sqe_Task_Stack),5,100);

@@ -33,6 +33,8 @@ enum
 	LSM6DSR_E = 1,
 	QMC6309_E = 2,
 	SPA06_003_E = 3,
+	SCH16T_E = 4,
+	XV7001_E = 5,
 };
 
 typedef struct 

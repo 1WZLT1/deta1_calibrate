@@ -39,6 +39,7 @@
 #include "imu_task.h"
 #include "rtthread.h"
 #include "lsm6dsr.h"
+#include "xv7001.h"
 #include "FDILinkManager.h"
 /* add user code end private includes */
 
@@ -168,17 +169,43 @@ int main(void)
                         DMA1_CHANNEL6_BUFFER_SIZE);
   dma_channel_enable(DMA1_CHANNEL6, TRUE);
 
+  /* init dma2 channel4 */
+  wk_dma2_channel4_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA2_CHANNEL4, 
+                        (uint32_t)&SPI2->dt, 
+                        DMA2_CHANNEL4_MEMORY_BASE_ADDR, 
+                        DMA2_CHANNEL4_BUFFER_SIZE);
+  dma_channel_enable(DMA2_CHANNEL4, TRUE);
+
+  /* init dma2 channel5 */
+  wk_dma2_channel5_init();
+  /* config dma channel transfer parameter */
+  /* user need to modify define values DMAx_CHANNELy_XXX_BASE_ADDR and DMAx_CHANNELy_BUFFER_SIZE in at32xxx_wk_config.h */
+  wk_dma_channel_config(DMA2_CHANNEL5, 
+                        (uint32_t)&SPI2->dt, 
+                        DMA2_CHANNEL5_MEMORY_BASE_ADDR, 
+                        DMA2_CHANNEL5_BUFFER_SIZE);
+  dma_channel_enable(DMA2_CHANNEL5, TRUE);
+
   /* init usart1 function. */
   wk_usart1_init();
 
   /* init spi1 function. */
   wk_spi1_init();
 
+  /* init spi2 function. */
+  wk_spi2_init();
+
   /* init exint function. */
   wk_exint_config();
 
   /* init tmr2 function. */
   wk_tmr2_init();
+
+  /* init tmr4 function. */
+  wk_tmr4_init();
 
   /* init tmr5 function. */
   wk_tmr5_init();
@@ -189,15 +216,30 @@ int main(void)
 	
 	dma_channel_enable(DMA1_CHANNEL5, FALSE);
 	dma_channel_enable(DMA1_CHANNEL6, FALSE);
-
+	
+	dma_channel_enable(DMA2_CHANNEL4, FALSE);
+	dma_channel_enable(DMA2_CHANNEL5, FALSE);
+ 
 	flash_nzw_boost_enable(TRUE);
 	flash_continue_read_enable(TRUE);
 	
 	LSM6DSR_Init();
+	xv7001_Init();
 	thread_init();
 	all_init = 1;
+	
+	#if(0)
+  /* add user code end 2 */
+
+  while(1)
+  {
+    /* add user code begin 3 */
+
+    /* add user code end 3 */
+  }
 }
 
   /* add user code begin 4 */
-
+	#endif
+}
   /* add user code end 4 */

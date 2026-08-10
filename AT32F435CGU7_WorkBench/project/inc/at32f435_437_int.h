@@ -69,11 +69,14 @@ void SysTick_Handler(void);
 
 void EXINT9_5_IRQHandler(void);
 void TMR2_GLOBAL_IRQHandler(void);
+void TMR4_GLOBAL_IRQHandler(void);
 void TMR5_GLOBAL_IRQHandler(void);
 void DMA1_Channel1_IRQHandler(void);
 void DMA1_Channel2_IRQHandler(void);
 void DMA1_Channel5_IRQHandler(void);
 void DMA1_Channel6_IRQHandler(void);
+void DMA2_Channel4_IRQHandler(void);
+void DMA2_Channel5_IRQHandler(void);
 
 /* add user code begin exported functions */
 int64_t CortexM_Get_Us(void);

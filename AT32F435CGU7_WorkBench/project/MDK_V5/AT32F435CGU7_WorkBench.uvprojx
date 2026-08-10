@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>AT32F435CGU7,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc;..\..\Tool\inc</IncludePath>
+              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc;..\..\Tool\inc;..\..\Device_Hardware_Layer\xv7001</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -560,6 +560,11 @@
               <FileName>rtio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Device_Hardware_Layer\rtio\src\rtio.c</FilePath>
+            </File>
+            <File>
+              <FileName>xv7001.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\xv7001\xv7001.c</FilePath>
             </File>
           </Files>
         </Group>

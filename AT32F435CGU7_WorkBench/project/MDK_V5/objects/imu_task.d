@@ -28,6 +28,7 @@
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\imu_task.o: ..\..\Device_Hardware_Layer\rtio\inc\util.h
+.\objects\imu_task.o: ..\..\Device_Hardware_Layer\xv7001\xv7001.h
 .\objects\imu_task.o: ..\..\Tool\inc\FDIlinkManager.h
 .\objects\imu_task.o: ..\..\Device_Services_Layer\inc\uart_serve.h
 .\objects\imu_task.o: ..\..\libraries\drivers\inc\at32f435_437_dma.h

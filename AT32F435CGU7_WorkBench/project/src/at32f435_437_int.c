@@ -34,11 +34,13 @@
 #include "rtio.h"
 #include "LSM6DSR.h"
 #include "FDILinkManager.h"
+#include "xv7001.h"
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
 /* add user code begin private typedef */
 extern rtio_t  rtio_spi1;
+extern rtio_t  rtio_spi2;
 extern uint8_t all_init;
 /* add user code end private typedef */
 
@@ -109,13 +111,13 @@ void NMI_Handler(void)
 //{
 //  /* add user code begin HardFault_IRQ 0 */
 
-//////////////  /* add user code end HardFault_IRQ 0 */
+//////////////////  /* add user code end HardFault_IRQ 0 */
 //  /* go to infinite loop when hard fault exception occurs */
 //  while (1)
 //  {
 //    /* add user code begin W1_HardFault_IRQ 0 */
 
-//////////////    /* add user code end W1_HardFault_IRQ 0 */
+//////////////////    /* add user code end W1_HardFault_IRQ 0 */
 //  }
 //}
 
@@ -206,19 +208,19 @@ void DebugMon_Handler(void)
   /* add user code end DebugMonitor_IRQ 1 */
 }
 
-/**
-  * @brief  this function handles pendsv_handler exception.
-  * @param  none
-  * @retval none
-  */
+///**
+//  * @brief  this function handles pendsv_handler exception.
+//  * @param  none
+//  * @retval none
+//  */
 //void PendSV_Handler(void)
 //{
 //  /* add user code begin PendSV_IRQ 0 */
 
-//////////////  /* add user code end PendSV_IRQ 0 */
+//////////////////  /* add user code end PendSV_IRQ 0 */
 //  /* add user code begin PendSV_IRQ 1 */
 
-//////////////  /* add user code end PendSV_IRQ 1 */
+//////////////////  /* add user code end PendSV_IRQ 1 */
 //}
 
 /**
@@ -230,12 +232,12 @@ void DebugMon_Handler(void)
 //{
 //  /* add user code begin SysTick_IRQ 0 */
 
-//////////////  /* add user code end SysTick_IRQ 0 */
+//////////////////  /* add user code end SysTick_IRQ 0 */
 
 
 //  /* add user code begin SysTick_IRQ 1 */
 
-//////////////  /* add user code end SysTick_IRQ 1 */
+//////////////////  /* add user code end SysTick_IRQ 1 */
 //}
 
 /**
@@ -278,6 +280,29 @@ void TMR2_GLOBAL_IRQHandler(void)
   /* add user code begin TMR2_GLOBAL_IRQ 1 */
 
   /* add user code end TMR2_GLOBAL_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles TMR4 handler.
+  * @param  none
+  * @retval none
+  */
+void TMR4_GLOBAL_IRQHandler(void)
+{
+  /* add user code begin TMR4_GLOBAL_IRQ 0 */
+	if(TMR4->ists & 0x01)
+	{
+		rt_interrupt_enter();
+		if(all_init == 1)xv7001_callback(&rtio_spi2);
+		TMR4->ists &= ~(0x01);
+		rt_interrupt_leave();
+	}
+  /* add user code end TMR4_GLOBAL_IRQ 0 */
+
+
+  /* add user code begin TMR4_GLOBAL_IRQ 1 */
+
+  /* add user code end TMR4_GLOBAL_IRQ 1 */
 }
 
 /**
@@ -324,8 +349,6 @@ void DMA1_Channel1_IRQHandler(void)
   * @param  none
   * @retval none
   */
-uint64_t intervel = 0;
-uint64_t last_time = 0;
 void DMA1_Channel2_IRQHandler(void)
 {
   /* add user code begin DMA1_Channel2_IRQ 0 */
@@ -337,8 +360,6 @@ void DMA1_Channel2_IRQHandler(void)
 		dma_channel_enable(DMA1_CHANNEL2, FALSE);
 		
 		uint64_t this_time = Micros();
-		intervel = this_time - last_time;
-		last_time = this_time;
 		
 		busy_flag = 0;
 		count = 0;
@@ -411,6 +432,92 @@ void DMA1_Channel6_IRQHandler(void)
   /* add user code begin DMA1_Channel6_IRQ 1 */
 
   /* add user code end DMA1_Channel6_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles DMA2 Channel 4 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA2_Channel4_IRQHandler(void)
+{
+  /* add user code begin DMA2_Channel4_IRQ 0 */
+	if(DMA2->sts_bit.fdtf4 == 1)
+	{
+		rt_interrupt_enter();
+		dma_flag_clear(DMA2_FDT4_FLAG);
+		
+		#if(0)
+		rtio_node_t *node = rtio_spi2.current_node;
+		if(node != NULL)
+		{
+			if(rtio_spi2.current_node->Device_Name == SCH16T_E)
+			{
+				SCHA16T_CS_disable;
+				
+				rtio_node_rx_t dev;
+				dev.Device_Name = SCH16T_E;
+				
+				rt_memcpy(&dev.rx,&SCH16T_Receive_Buffer_Asyn,sizeof(SCH16T_Receive_Buffer_Asyn));
+				
+				rt_mq_send(sensor_cqe_mq,&dev, sizeof(rtio_node_rx_t));
+			}
+			
+			rtio_spi2.current_node = NULL;
+			rtio_release(&rtio_spi2,node);
+			rtio_spi2.Dev_busy_State = Dev_IDLE; 
+		}
+		#else 
+		rtio_node_t *node = rtio_spi2.current_node;
+		if(node != NULL)
+		{
+			if(rtio_spi2.current_node->Device_Name == XV7001_E)
+			{
+				xv7001_CS_disable;
+				
+				rtio_node_rx_t dev;
+				dev.Device_Name = XV7001_E;
+				
+				rt_memcpy(&dev.rx,&XV7001_Data_Recive,sizeof(XV7001_Data_Recive));
+				
+				rt_mq_send(sensor_cqe_mq,&dev, sizeof(rtio_node_rx_t));
+			}
+			
+			rtio_spi2.current_node = NULL;
+			rtio_release(&rtio_spi2,node);
+			rtio_spi2.Dev_busy_State = Dev_IDLE; 
+		}
+		#endif
+		
+		dma_channel_enable(DMA2_CHANNEL4, FALSE);
+		rt_interrupt_leave();
+	}
+  /* add user code end DMA2_Channel4_IRQ 0 */
+  /* add user code begin DMA2_Channel4_IRQ 1 */
+
+  /* add user code end DMA2_Channel4_IRQ 1 */
+}
+
+/**
+  * @brief  this function handles DMA2 Channel 5 handler.
+  * @param  none
+  * @retval none
+  */
+void DMA2_Channel5_IRQHandler(void)
+{
+  /* add user code begin DMA2_Channel5_IRQ 0 */
+	if(DMA2->sts_bit.fdtf5 == 1)
+	{
+		rt_interrupt_enter();
+		dma_flag_clear(DMA2_FDT5_FLAG);
+		dma_channel_enable(DMA2_CHANNEL5, FALSE);
+		
+		rt_interrupt_leave();
+	}
+  /* add user code end DMA2_Channel5_IRQ 0 */
+  /* add user code begin DMA2_Channel5_IRQ 1 */
+
+  /* add user code end DMA2_Channel5_IRQ 1 */
 }
 
 /* add user code begin 1 */

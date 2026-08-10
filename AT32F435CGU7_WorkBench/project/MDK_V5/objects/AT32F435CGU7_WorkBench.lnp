@@ -30,6 +30,7 @@
 ".\objects\sensor.o"
 ".\objects\lsm6dsr.o"
 ".\objects\rtio.o"
+".\objects\xv7001.o"
 ".\objects\verify_tool.o"
 ".\objects\queue.o"
 ".\objects\td.o"

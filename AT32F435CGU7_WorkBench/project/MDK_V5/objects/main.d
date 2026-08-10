@@ -58,6 +58,7 @@
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\main.o: ..\..\Device_Hardware_Layer\rtio\inc\util.h
 .\objects\main.o: ..\..\Device_Hardware_Layer\sensor.h
+.\objects\main.o: ..\..\Device_Hardware_Layer\xv7001\xv7001.h
 .\objects\main.o: ..\..\Tool\inc\FDILinkManager.h
 .\objects\main.o: ..\..\Device_Services_Layer\inc\uart_serve.h
 .\objects\main.o: ..\..\Tool\inc\queue.h

@@ -38,6 +38,17 @@
             <ParametersSub name="ClockFrequency" value="9000000"/>
         </Parameters>
     </SPI1>
+    <SPI2>
+        <Mode>
+            <ModeSub name="Mode" value="Full_Duplex_Master"/>
+        </Mode>
+        <Parameters>
+            <ParametersSub name="TransmissionMode" value="SPI_TRANSMIT_FULL_DUPLEX"/>
+            <ParametersSub name="Mode" value="SPI_MODE_MASTER"/>
+            <ParametersSub name="FirstBit" value="SPI_FIRST_BIT_MSB"/>
+            <ParametersSub name="ClockFrequency" value="36000000"/>
+        </Parameters>
+    </SPI2>
     <SYSTEM>
         <Mode>
             <ModeSub name="Time_Base" value=""/>
@@ -53,6 +64,15 @@
             <ParametersSub name="Period" value="2499"/>
         </Parameters>
     </TMR2>
+    <TMR4>
+        <Mode>
+            <ModeSub name="Activated" value="TRUE"/>
+        </Mode>
+        <Parameters>
+            <ParametersSub name="DividerValue" value="287"/>
+            <ParametersSub name="Period" value="999"/>
+        </Parameters>
+    </TMR4>
     <TMR5>
         <Mode>
             <ModeSub name="Activated" value="TRUE"/>
@@ -84,6 +104,18 @@
             <ParametersSub name="SyncRequestCount" value="1"/>
             <ParametersSub name="RequestCount" value="1"/>
         </SPI1_TX>
+        <SPI2_RX>
+            <ParametersSub name="Instance" value="DMA2_Channel4"/>
+            <ParametersSub name="DMANum" value="DMA2"/>
+            <ParametersSub name="SyncRequestCount" value="1"/>
+            <ParametersSub name="RequestCount" value="1"/>
+        </SPI2_RX>
+        <SPI2_TX>
+            <ParametersSub name="Instance" value="DMA2_Channel5"/>
+            <ParametersSub name="DMANum" value="DMA2"/>
+            <ParametersSub name="SyncRequestCount" value="1"/>
+            <ParametersSub name="RequestCount" value="1"/>
+        </SPI2_TX>
         <USART1_RX>
             <ParametersSub name="Instance" value="DMA1_Channel1"/>
             <ParametersSub name="SyncRequestCount" value="1"/>
@@ -102,7 +134,9 @@
         <CRM_IRQHandler>0;0;0;0;0</CRM_IRQHandler>
         <EXINT9_5_IRQHandler>1;0;0;0;0</EXINT9_5_IRQHandler>
         <TMR2_GLOBAL_IRQHandler>1;0;0;0;0</TMR2_GLOBAL_IRQHandler>
+        <TMR4_GLOBAL_IRQHandler>1;0;0;0;0</TMR4_GLOBAL_IRQHandler>
         <SPI1_IRQHandler>0;0;0;0;0</SPI1_IRQHandler>
+        <SPI2_I2S2EXT_IRQHandler>0;0;0;0;0</SPI2_I2S2EXT_IRQHandler>
         <USART1_IRQHandler>0;0;0;0;0</USART1_IRQHandler>
         <TMR5_GLOBAL_IRQHandler>1;0;0;0;0</TMR5_GLOBAL_IRQHandler>
         <DMA1_Channel1_IRQHandler>1;0;0;0;0</DMA1_Channel1_IRQHandler>
@@ -112,6 +146,8 @@
         <DVP_IRQHandler>0;0;0;0;0</DVP_IRQHandler>
         <FPU_IRQHandler>0;0;0;0;0</FPU_IRQHandler>
         <DMAMUX_IRQHandler>0;0;0;0;0</DMAMUX_IRQHandler>
+        <DMA2_Channel4_IRQHandler>1;0;0;0;0</DMA2_Channel4_IRQHandler>
+        <DMA2_Channel5_IRQHandler>1;0;0;0;0</DMA2_Channel5_IRQHandler>
     </NVIC>
     <ClockConfiguration>
         <rtcsel>0</rtcsel>
@@ -140,6 +176,10 @@
         <PinSub pinname="PH0/HEXT_IN" signalname="CRM_HEXT_IN" signaltype="2"/>
         <PinSub pinname="PH1/HEXT_OUT" signalname="CRM_HEXT_OUT" signaltype="2"/>
         <PinSub pinname="PA6" signalname="EXINT6" signaltype="3"/>
+        <PinSub pinname="PB14" signalname="SPI2_MISO" signaltype="3"/>
+        <PinSub pinname="PB15" signalname="SPI2_MOSI" signaltype="3"/>
+        <PinSub pinname="PA9" signalname="SPI2_SCK" signaltype="3"/>
+        <PinSub pinname="PA11" signalname="GPIO_Output" signaltype="3"/>
         <PinSub pinname="PA15" signalname="GPIO_Output" signaltype="3"/>
         <PinSub pinname="PB3" signalname="SPI1_SCK" signaltype="2"/>
         <PinSub pinname="PB4" signalname="SPI1_MISO" signaltype="2"/>

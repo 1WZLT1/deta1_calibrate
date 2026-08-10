@@ -53,3 +53,4 @@
 .\objects\at32f435_437_int.o: ..\..\Tool\inc\FDILinkManager.h
 .\objects\at32f435_437_int.o: ..\..\Device_Services_Layer\inc\uart_serve.h
 .\objects\at32f435_437_int.o: ..\..\Tool\inc\queue.h
+.\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\xv7001\xv7001.h
