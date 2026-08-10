@@ -181,7 +181,14 @@ __Vectors_Size  EQU  __Vectors_End - __Vectors
 Reset_Handler   PROC
                 EXPORT  Reset_Handler                       [WEAK]
                 IMPORT  __main
-                IMPORT  SystemInit
+				IMPORT  SystemInit
+				IMPORT  FDI_Flash_EOPB0_Set
+
+				LDR     R0,=0x20040000;保证主栈在一个安全的位置
+				MOV     SP,R0
+				
+				LDR     R0,=FDI_Flash_EOPB0_Set
+				BLX     R0	
                 LDR     R0, =SystemInit
                 BLX     R0
                 LDR     R0, =__main

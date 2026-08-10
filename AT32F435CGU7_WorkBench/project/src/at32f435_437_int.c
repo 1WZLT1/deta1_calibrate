@@ -324,6 +324,8 @@ void DMA1_Channel1_IRQHandler(void)
   * @param  none
   * @retval none
   */
+uint64_t intervel = 0;
+uint64_t last_time = 0;
 void DMA1_Channel2_IRQHandler(void)
 {
   /* add user code begin DMA1_Channel2_IRQ 0 */
@@ -333,6 +335,11 @@ void DMA1_Channel2_IRQHandler(void)
 		
 		dma_flag_clear(DMA1_FDT2_FLAG);
 		dma_channel_enable(DMA1_CHANNEL2, FALSE);
+		
+		uint64_t this_time = Micros();
+		intervel = this_time - last_time;
+		last_time = this_time;
+		
 		busy_flag = 0;
 		count = 0;
 		rt_interrupt_leave();

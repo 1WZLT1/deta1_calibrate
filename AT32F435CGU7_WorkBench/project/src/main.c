@@ -78,6 +78,19 @@ void thread_init()
 	__enable_irq();
 }
 
+void FDI_Flash_EOPB0_Set(void)
+{
+	uint16_t cur = USD->eopb0 & 0x0007;
+	if(cur != 0x04)
+	{
+		flash_unlock();
+		flash_user_system_data_erase();
+		flash_eopb0_config(0x04);
+		flash_lock();
+		NVIC_SystemReset();
+	}
+}
+
 uint8_t all_init = 0;
 
 /* add user code end function prototypes */
@@ -176,18 +189,13 @@ int main(void)
 	
 	dma_channel_enable(DMA1_CHANNEL5, FALSE);
 	dma_channel_enable(DMA1_CHANNEL6, FALSE);
+
+	flash_nzw_boost_enable(TRUE);
+	flash_continue_read_enable(TRUE);
 	
 	LSM6DSR_Init();
 	thread_init();
 	all_init = 1;
-  /* add user code end 2 */
-
-  while(1)
-  {
-    /* add user code begin 3 */
-
-    /* add user code end 3 */
-  }
 }
 
   /* add user code begin 4 */

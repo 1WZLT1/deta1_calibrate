@@ -5,6 +5,7 @@
 #include "imu_task.h"
 
 #include "rtthread.h"
+#include "at32f435_437_int.h"
 
 #include <stdint.h>
 #include <wk_dma.h>
@@ -49,7 +50,7 @@ typedef struct
 static FDILinkManager_Status_t FDIData;
 
 FDILink_t FDILink_Handle;
-
+struct rt_semaphore imuSensorPack;
 void FDILinkSend_RAWData(uint64_t time)
 {
 	FDIData.RawData.Accelerometer_X = imuData.raw_accs_1[0];
@@ -67,6 +68,8 @@ void FDILinkSend_RAWData(uint64_t time)
 	ALIGN(8) static uint8_t fdi_buffer[256];
 	FDILink_Pack(fdi_buffer, &FDILink_Handle, 0xF3, (uint8_t*)&FDIData.RawData, sizeof(FDILink_RawData));
 	Queue_Input(&FDIData.TxQueue,(void*)fdi_buffer, sizeof(FDILink_RawData) + 8);
+	
+	rt_sem_release(&imuSensorPack);	
 }
 
 
@@ -87,10 +90,13 @@ uint16_t GetDEVID()
 }
 
 int busy_flag = 0,count = 0;
+
 void FDILinkSendCode(void *unused)
 {
 	while(1)
 	{
+		rt_sem_take(&imuSensorPack, RT_WAITING_FOREVER);
+		
 		int len = Queue_Output(&FDIData.TxQueue, &FDIData.FDILinkSendBuffer[0], FDILINK_STNC_BUFEER_SIZE);
 		if(len > 0)
 		{
@@ -135,5 +141,6 @@ void FDILinkManager_Init(void)
 	
 	rt_thread_init(&Serial_Task,"Serial_Task",FDILinkSendCode,NULL,&Serial_Task_Stack[0],sizeof(Serial_Task_Stack),9,100);
 	rt_thread_startup(&Serial_Task);
+	rt_sem_init(&imuSensorPack,  "", 0, 0);
 }
 
