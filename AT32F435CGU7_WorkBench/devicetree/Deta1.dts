@@ -1,0 +1,71 @@
+/dts-v1/;
+/ {
+    deta1
+    {
+      spi_bus
+      {
+          spi1
+          {
+            peripheral     = "SPI1";
+            tx-dma-channel = "DMA1_CHANNEL6";
+            rx-dma-channel = "DMA1_CHANNEL5";
+
+            sclk-gpio-port = "GPIOB";
+            sclk-gpio-pin  = "GPIO_PINS_3";
+            mosi-gpio-port = "GPIOB";
+            mosi-gpio-pin  = "GPIO_PINS_5";
+            miso-gpio-port = "GPIOB";
+            miso-gpio-pin  = "GPIO_PINS_4";
+            status         = "enable";
+
+            lsm6dsr
+            {
+              compatible   = "st,lsm6dsr";
+              cs-gpio-port = "GPIOA";
+              cs-gpio-pin  = "GPIO_PINS_4";
+              status       = "enable";
+            };
+          };
+
+          spi2
+          {
+            peripheral     = "SPI2";
+            tx-dma-channel = "DMA2_CHANNEL5";
+            rx-dma-channel = "DMA2_CHANNEL4";
+
+            sclk-gpio-port = "GPIOA";
+            sclk-gpio-pin  = "GPIO_PINS_9";
+            mosi-gpio-port = "GPIOB";
+            mosi-gpio-pin  = "GPIO_PINS_15";
+            miso-gpio-port = "GPIOB";
+            miso-gpio-pin  = "GPIO_PINS_14";
+            status         = "enable";
+
+            XV7011
+            {
+              compatible   = "epson,xv7011";
+              cs-gpio-port = "GPIOA";
+              cs-gpio-pin  = "GPIO_PINS_11";
+              status       = "enable";
+            };
+          };
+      };
+
+      usart_bus
+      {
+        usart1
+        {
+          peripheral     = "USART1";
+          tx-dma-channel = "DMA1_CHANNEL2";
+          rx-dma-channel = "DMA1_CHANNEL1";
+
+          tx-gpio-port   = "GPIOB";
+          tx-gpio-pin    = "GPIO_PINS_6";
+          rx-gpio-port   = "GPIOB";
+          rx-gpio-pin    = "GPIO_PINS_7";
+
+          status         = "enable";
+        };
+      };
+    };
+};

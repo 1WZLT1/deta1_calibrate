@@ -69,9 +69,9 @@
             <nStopU2X>0</nStopU2X>
           </BeforeCompile>
           <BeforeMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <UserProg1Name>\at32_repository\AT32F435CGU7_WorkBench\devicetree\devicetree_generator.exe "\at32_repository\AT32F435CGU7_WorkBench\devicetree\Deta1.dts"</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>AT32F435CGU7,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc;..\..\Tool\inc;..\..\Device_Hardware_Layer\xv7001</IncludePath>
+              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc;..\..\Tool\inc;..\..\Device_Hardware_Layer\xv7001;..\..\devicetree</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -585,6 +585,16 @@
               <FileName>TD.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Tool\src\TD.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>DeviceTree</GroupName>
+          <Files>
+            <File>
+              <FileName>devicetree_generated.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\devicetree\devicetree_generated.h</FilePath>
             </File>
           </Files>
         </Group>
