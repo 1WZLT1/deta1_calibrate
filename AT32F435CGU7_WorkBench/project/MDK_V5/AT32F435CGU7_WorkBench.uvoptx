@@ -22,7 +22,7 @@
   </DaveTm>
 
   <Target>
-    <TargetName>AT32F435CGU7_WorkBench</TargetName>
+    <TargetName>Deta40_AT32</TargetName>
     <ToolsetNumber>0x4</ToolsetNumber>
     <ToolsetName>ARM-ADS</ToolsetName>
     <TargetOption>
@@ -148,40 +148,7 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0AT32F435_1024 -FS08000000 -FL00100000 -FP0($$Device:-AT32F435CGU7$Flash\AT32F435_1024.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>97</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134291338</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\..\Device_Application_Layer\src\imu_task.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\AT32F435CGU7_WorkBench\../../Device_Application_Layer/src/imu_task.c\97</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>95</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134291298</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\..\Device_Application_Layer\src\imu_task.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\AT32F435CGU7_WorkBench\../../Device_Application_Layer/src/imu_task.c\95</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -214,6 +181,21 @@
           <count>2</count>
           <WinNumber>2</WinNumber>
           <ItemText>imuData.raw_accs</ItemText>
+        </Ww>
+        <Ww>
+          <count>3</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>imuData.raw_gyros</ItemText>
+        </Ww>
+        <Ww>
+          <count>4</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>imuData.raw_accs_2</ItemText>
+        </Ww>
+        <Ww>
+          <count>5</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>imuData.raw_gyros_2</ItemText>
         </Ww>
       </WatchWindow2>
       <MemoryWindow1>

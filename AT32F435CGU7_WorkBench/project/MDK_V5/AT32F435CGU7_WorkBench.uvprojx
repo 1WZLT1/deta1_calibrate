@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>AT32F435CGU7_WorkBench</TargetName>
+      <TargetName>Deta40_AT32</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
@@ -48,7 +48,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\objects\</OutputDirectory>
-          <OutputName>AT32F435CGU7_WorkBench</OutputName>
+          <OutputName>DETA40_AT32</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -81,7 +81,7 @@
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name>FDICreater.exe --replace 0x08010000|0x200 --hver 0x0001010000 --name DETA-1N --hname DETA-1N #H</UserProg1Name>
+            <UserProg1Name>FDICreater.exe --replace 0x08010000|0x200 --hver 0x0001010000 --name DETA-40N --hname DETA-40N #H</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -621,7 +621,7 @@
       <component Cbundle="RT-Thread" Cclass="RTOS" Cgroup="kernel" Cvendor="RealThread" Cversion="3.1.2" condition="CMSIS Core with RTOS">
         <package license="License.txt" name="RT-Thread" schemaVersion="1.4" supportContact="https://www.rt-thread.org" url="https://www.rt-thread.org/download/mdk/" vendor="RealThread" version="3.1.2"/>
         <targetInfos>
-          <targetInfo name="AT32F435CGU7_WorkBench"/>
+          <targetInfo name="Deta40_AT32"/>
         </targetInfos>
       </component>
     </components>
@@ -631,7 +631,7 @@
         <component Cbundle="RT-Thread" Cclass="RTOS" Cgroup="kernel" Cvendor="RealThread" Cversion="3.1.2" condition="CMSIS Core with RTOS"/>
         <package license="License.txt" name="RT-Thread" schemaVersion="1.4" supportContact="https://www.rt-thread.org" url="https://www.rt-thread.org/download/mdk/" vendor="RealThread" version="3.1.2"/>
         <targetInfos>
-          <targetInfo name="AT32F435CGU7_WorkBench"/>
+          <targetInfo name="Deta40_AT32"/>
         </targetInfos>
       </file>
       <file attr="config" category="header" name="bsp\rtconfig.h" version="3.1.2">
@@ -639,7 +639,7 @@
         <component Cbundle="RT-Thread" Cclass="RTOS" Cgroup="kernel" Cvendor="RealThread" Cversion="3.1.2" condition="CMSIS Core with RTOS"/>
         <package license="License.txt" name="RT-Thread" schemaVersion="1.4" supportContact="https://www.rt-thread.org" url="https://www.rt-thread.org/download/mdk/" vendor="RealThread" version="3.1.2"/>
         <targetInfos>
-          <targetInfo name="AT32F435CGU7_WorkBench"/>
+          <targetInfo name="Deta40_AT32"/>
         </targetInfos>
       </file>
     </files>
