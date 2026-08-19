@@ -1,0 +1,115 @@
+/dts-v1/;
+/ {
+    deta10
+    {
+      spi_bus
+      {
+          spi1
+          {
+            peripheral     = "SPI1";
+            tx-dma-channel = "DMA1_CHANNEL6";
+            rx-dma-channel = "DMA1_CHANNEL5";
+
+            sclk-gpio-port = "GPIOB";
+            sclk-gpio-pin  = "GPIO_PINS_3";
+            mosi-gpio-port = "GPIOB";
+            mosi-gpio-pin  = "GPIO_PINS_5";
+            miso-gpio-port = "GPIOB";
+            miso-gpio-pin  = "GPIO_PINS_4";
+            status         = "enable";
+
+            lsm6dsrtr
+            {
+              compatible   = "st,lsm6dsrtr";
+              cs-gpio-port = "GPIOA";
+              cs-gpio-pin  = "GPIO_PINS_4";
+              status       = "disenable";
+            };
+
+            iim42652
+            {
+              compatible   = "invensense,iim42652";
+              cs-gpio-port = "GPIOA";
+              cs-gpio-pin  = "GPIO_PINS_15";
+              status       = "enable";
+            };
+
+            spa06-003
+            {
+              compatible   = "goertek,spa06-003";
+              cs-gpio-port = "GPIOC";
+              cs-gpio-pin  = "GPIO_PINS_15";
+              status       = "enable";
+            };
+          };
+      };
+
+      i2c_bus
+      {
+        i2c2
+        {
+            peripheral     = "I2C2";
+            tx-dma-channel = "DMA2_CHANNEL3";
+            rx-dma-channel = "DMA2_CHANNEL2";
+
+            scl-gpio-port  = "GPIOH";
+            scl-gpio-pin   = "GPIO_PINS_2";
+            sda-gpio-port  = "GPIOA";
+            sda-gpio-pin   = "GPIO_PINS_12";
+            status         = "enable";
+
+            qmc6309
+            {
+              compatible   = "qst,qmc6309";
+              sensor_addr  = "0x7C";
+              status       = "enable";
+            };
+        };
+      };
+
+      usart_bus
+      {
+        usart1
+        {
+          peripheral     = "USART1";
+          tx-dma-channel = "DMA1_CHANNEL2";
+          rx-dma-channel = "DMA1_CHANNEL1";
+
+          tx-gpio-port   = "GPIOB";
+          tx-gpio-pin    = "GPIO_PINS_6";
+          rx-gpio-port   = "GPIOB";
+          rx-gpio-pin    = "GPIO_PINS_7";
+
+          status         = "enable";
+        };
+
+        usart2
+        {
+          peripheral     = "USART2";
+          tx-dma-channel = "DMA1_CHANNEL4";
+          rx-dma-channel = "DMA1_CHANNEL1";
+
+          tx-gpio-port   = "GPIOA";
+          tx-gpio-pin    = "GPIO_PINS_2";
+          rx-gpio-port   = "GPIOA";
+          rx-gpio-pin    = "GPIO_PINS_3";
+
+          status         = "enable";
+        };
+
+        usart3
+        {
+          peripheral     = "USART3";
+          tx-dma-channel = "DMA2_CHANNEL5";
+          rx-dma-channel = "DMA2_CHANNEL4";
+
+          tx-gpio-port   = "GPIOB";
+          tx-gpio-pin    = "GPIO_PINS_10";
+          rx-gpio-port   = "GPIOB";
+          rx-gpio-pin    = "GPIO_PINS_11";
+
+          status         = "enable";
+        };
+      };
+    };
+};
