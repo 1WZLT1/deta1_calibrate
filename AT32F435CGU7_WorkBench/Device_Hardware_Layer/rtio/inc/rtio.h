@@ -35,6 +35,7 @@ enum
 	SPA06_003_E = 3,
 	SCH16T_E = 4,
 	XV7001_E = 5,
+	ICM42688_E = 6,
 };
 
 typedef struct 

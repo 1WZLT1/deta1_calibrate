@@ -334,10 +334,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
-              <Define>AT32F435CGU7,USE_STDPERIPH_DRIVER</Define>
+              <MiscControls>--diag_suppress=1035,177,550</MiscControls>
+              <Define>AT32F435CGU7,USE_STDPERIPH_DRIVER,HAS_ICM42688,</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc;..\..\Tool\inc;..\..\Device_Hardware_Layer\xv7001</IncludePath>
+              <IncludePath>..\..\libraries\drivers\inc;..\..\libraries\cmsis\cm4\core_support;..\..\libraries\cmsis\cm4\device_support;..\inc;..\..\Device_Application_Layer\inc;..\..\Device_Hardware_Layer\LSM6DSR;..\..\Device_Hardware_Layer;..\..\Device_Hardware_Layer\rtio\inc;..\..\Device_Services_Layer\inc;..\..\Tool\inc;..\..\Device_Hardware_Layer\xv7001;..\..\Device_Hardware_Layer\SCHA16T;..\..\Device_Hardware_Layer\ICM42688;..\..\Device_Hardware_Layer\ICM42688\Invn\Drivers\Icm426xx;..\..\Device_Hardware_Layer\ICM42688\Invn</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -552,19 +552,39 @@
               <FilePath>..\..\Device_Hardware_Layer\sensor.c</FilePath>
             </File>
             <File>
-              <FileName>LSM6DSR.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Device_Hardware_Layer\LSM6DSR\LSM6DSR.c</FilePath>
-            </File>
-            <File>
               <FileName>rtio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Device_Hardware_Layer\rtio\src\rtio.c</FilePath>
             </File>
             <File>
+              <FileName>LSM6DSR.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\LSM6DSR\LSM6DSR.c</FilePath>
+            </File>
+            <File>
               <FileName>xv7001.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Device_Hardware_Layer\xv7001\xv7001.c</FilePath>
+            </File>
+            <File>
+              <FileName>SCHA16T.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\SCHA16T\SCHA16T.c</FilePath>
+            </File>
+            <File>
+              <FileName>icm42688.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\ICM42688\icm42688.c</FilePath>
+            </File>
+            <File>
+              <FileName>Icm426xxDriver_HL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\ICM42688\Invn\Drivers\Icm426xx\Icm426xxDriver_HL.c</FilePath>
+            </File>
+            <File>
+              <FileName>Icm426xxDriver_HL_apex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Device_Hardware_Layer\ICM42688\Invn\Drivers\Icm426xx\Icm426xxDriver_HL_apex.c</FilePath>
             </File>
           </Files>
         </Group>

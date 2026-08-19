@@ -57,6 +57,9 @@ extern "C" {
 
 /* exported functions ------------------------------------------------------- */
 
+  /* init tmr1 function. */
+  void wk_tmr1_init(void);
+
   /* init tmr2 function. */
   void wk_tmr2_init(void);
 

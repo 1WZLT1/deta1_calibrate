@@ -33,8 +33,11 @@
 #include "imu_task.h"
 #include "rtio.h"
 #include "LSM6DSR.h"
-#include "FDILinkManager.h"
 #include "xv7001.h"
+#include "SCHA16T.h"
+#include "icm42688.h"
+#include "FDILinkManager.h"
+
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
@@ -111,13 +114,13 @@ void NMI_Handler(void)
 //{
 //  /* add user code begin HardFault_IRQ 0 */
 
-//////////////////  /* add user code end HardFault_IRQ 0 */
+//////////////////////  /* add user code end HardFault_IRQ 0 */
 //  /* go to infinite loop when hard fault exception occurs */
 //  while (1)
 //  {
 //    /* add user code begin W1_HardFault_IRQ 0 */
 
-//////////////////    /* add user code end W1_HardFault_IRQ 0 */
+//////////////////////    /* add user code end W1_HardFault_IRQ 0 */
 //  }
 //}
 
@@ -217,27 +220,27 @@ void DebugMon_Handler(void)
 //{
 //  /* add user code begin PendSV_IRQ 0 */
 
-//////////////////  /* add user code end PendSV_IRQ 0 */
+//////////////////////  /* add user code end PendSV_IRQ 0 */
 //  /* add user code begin PendSV_IRQ 1 */
 
-//////////////////  /* add user code end PendSV_IRQ 1 */
+//////////////////////  /* add user code end PendSV_IRQ 1 */
 //}
 
-/**
-  * @brief  this function handles systick handler.
-  * @param  none
-  * @retval none
-  */
+///**
+//  * @brief  this function handles systick handler.
+//  * @param  none
+//  * @retval none
+//  */
 //void SysTick_Handler(void)
 //{
 //  /* add user code begin SysTick_IRQ 0 */
 
-//////////////////  /* add user code end SysTick_IRQ 0 */
+//////////////////////  /* add user code end SysTick_IRQ 0 */
 
 
 //  /* add user code begin SysTick_IRQ 1 */
 
-//////////////////  /* add user code end SysTick_IRQ 1 */
+//////////////////////  /* add user code end SysTick_IRQ 1 */
 //}
 
 /**
@@ -245,12 +248,20 @@ void DebugMon_Handler(void)
   * @param  none
   * @retval none
   */
+volatile uint32_t drdy_now_us;
+volatile uint32_t drdy_last_us;
+volatile uint32_t drdy_interval_us;
+
 void EXINT9_5_IRQHandler(void)
 {
   /* add user code begin EXINT9_5_IRQ 0 */
 	rt_interrupt_enter();
+	drdy_now_us =  Micros();
+	drdy_interval_us = drdy_now_us - drdy_last_us;
+	drdy_last_us = drdy_now_us;
+	
 	exint_flag_clear(EXINT_LINE_6);	
-	if(all_init == 1)LSM6DSR_callback(&rtio_spi1);
+	if(all_init == 1)ICM42688_callback(&rtio_spi1);
 	rt_interrupt_leave();
   /* add user code end EXINT9_5_IRQ 0 */
   /* add user code begin EXINT9_5_IRQ 1 */
@@ -293,7 +304,7 @@ void TMR4_GLOBAL_IRQHandler(void)
 	if(TMR4->ists & 0x01)
 	{
 		rt_interrupt_enter();
-		if(all_init == 1)xv7001_callback(&rtio_spi2);
+		if(all_init == 1)SCHA16T_callback(&rtio_spi2);
 		TMR4->ists &= ~(0x01);
 		rt_interrupt_leave();
 	}
@@ -388,17 +399,16 @@ void DMA1_Channel5_IRQHandler(void)
 		
 		rtio_node_t *node = rtio_spi1.current_node;
 		if(node != NULL)
-		{
-			if(rtio_spi1.current_node->Device_Name == LSM6DSR_E)
+		{		
+			if(rtio_spi1.current_node->Device_Name == ICM42688_E)
 			{
-				LSM6DSR_CS_disenable;
-				
+				ICM42688_CS_disenable;
 				rtio_node_rx_t dev;
-				dev.Device_Name = LSM6DSR_E;
-				rt_memcpy(&dev.rx,&LSM6DR_Data_Receive,sizeof(LSM6DR_Data_Receive));
+				dev.Device_Name = ICM42688_E;
+				rt_memcpy(&dev.rx,&ICM42688_Data_Receive[1], 14);
 				rt_mq_send(sensor_cqe_mq,&dev, sizeof(rtio_node_rx_t));
 			}
-
+			
 			rtio_spi1.current_node = NULL;
 			rtio_release(&rtio_spi1,node);
 			rtio_spi1.Dev_busy_State = Dev_IDLE; 
@@ -447,7 +457,7 @@ void DMA2_Channel4_IRQHandler(void)
 		rt_interrupt_enter();
 		dma_flag_clear(DMA2_FDT4_FLAG);
 		
-		#if(0)
+		#if(1)
 		rtio_node_t *node = rtio_spi2.current_node;
 		if(node != NULL)
 		{

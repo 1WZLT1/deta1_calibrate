@@ -40,6 +40,8 @@
 #include "rtthread.h"
 #include "lsm6dsr.h"
 #include "xv7001.h"
+#include "scha16t.h"
+#include "icm42688.h"
 #include "FDILinkManager.h"
 /* add user code end private includes */
 
@@ -86,7 +88,7 @@ void FDI_Flash_EOPB0_Set(void)
 	{
 		flash_unlock();
 		flash_user_system_data_erase();
-		flash_eopb0_config(0x04);
+		flash_eopb0_config(FLASH_EOPB0_SRAM_256K);
 		flash_lock();
 		NVIC_SystemReset();
 	}
@@ -201,6 +203,9 @@ int main(void)
   /* init exint function. */
   wk_exint_config();
 
+  /* init tmr1 function. */
+  wk_tmr1_init();
+
   /* init tmr2 function. */
   wk_tmr2_init();
 
@@ -211,6 +216,10 @@ int main(void)
   wk_tmr5_init();
 
   /* add user code begin 2 */
+	
+	flash_nzw_boost_enable(TRUE);
+	flash_continue_read_enable(TRUE);
+	
 	dma_channel_enable(DMA1_CHANNEL1, FALSE);
 	dma_channel_enable(DMA1_CHANNEL2, FALSE);
 	
@@ -219,12 +228,12 @@ int main(void)
 	
 	dma_channel_enable(DMA2_CHANNEL4, FALSE);
 	dma_channel_enable(DMA2_CHANNEL5, FALSE);
- 
-	flash_nzw_boost_enable(TRUE);
-	flash_continue_read_enable(TRUE);
 	
-	LSM6DSR_Init();
-	xv7001_Init();
+	gpio_bits_write(GPIOA,GPIO_PINS_15,TRUE);
+	
+	iotex_icm42605_init();
+	SCHA16T_Init();
+	
 	thread_init();
 	all_init = 1;
 	

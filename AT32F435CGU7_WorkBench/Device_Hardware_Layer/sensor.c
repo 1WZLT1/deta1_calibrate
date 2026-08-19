@@ -3,6 +3,8 @@
 
 #include "LSM6DSR.h"
 #include "xv7001.h"
+#include "SCHA16T.h"
+#include "icm42688.h"
 
 #define timeout_tick 50
 
@@ -98,6 +100,16 @@ void Sensor_Cqe_Task_Function(void* parameter)
 		if(dev.Device_Name == XV7001_E)
 		{
 			XV7001_Conversion(dev.rx);
+		}
+		
+		if(dev.Device_Name == SCH16T_E)
+		{
+			SCHA16T_Conversion(dev.rx);
+		}
+		
+		if(dev.Device_Name == ICM42688_E)
+		{
+			ICM42688_Conversion(dev.rx);
 		}
 	}
 }

@@ -46,7 +46,8 @@
             <ParametersSub name="TransmissionMode" value="SPI_TRANSMIT_FULL_DUPLEX"/>
             <ParametersSub name="Mode" value="SPI_MODE_MASTER"/>
             <ParametersSub name="FirstBit" value="SPI_FIRST_BIT_MSB"/>
-            <ParametersSub name="ClockFrequency" value="36000000"/>
+            <ParametersSub name="ClkDivision" value="SPI_MCLK_DIV_16"/>
+            <ParametersSub name="ClockFrequency" value="9000000"/>
         </Parameters>
     </SPI2>
     <SYSTEM>
@@ -55,6 +56,18 @@
             <ModeSub name="SysTick_Interrupt" value="TRUE"/>
         </Mode>
     </SYSTEM>
+    <TMR1>
+        <Mode>
+            <ModeSub name="Channel1 mode" value="Output_CH1"/>
+            <ModeSub name="Activated" value="TRUE"/>
+        </Mode>
+        <Parameters>
+            <ParametersSub name="DividerValue" value="8"/>
+            <ParametersSub name="Period" value="999"/>
+            <ParametersSub name="OCMode_1" value="TMR_OUTPUT_CONTROL_PWM_MODE_A"/>
+            <ParametersSub name="ChannelData_1" value="500"/>
+        </Parameters>
+    </TMR1>
     <TMR2>
         <Mode>
             <ModeSub name="Activated" value="TRUE"/>
@@ -133,6 +146,10 @@
         <FLASH_IRQHandler>0;0;0;0;0</FLASH_IRQHandler>
         <CRM_IRQHandler>0;0;0;0;0</CRM_IRQHandler>
         <EXINT9_5_IRQHandler>1;0;0;0;0</EXINT9_5_IRQHandler>
+        <TMR1_BRK_TMR9_IRQHandler>0;0;0;0;0</TMR1_BRK_TMR9_IRQHandler>
+        <TMR1_OVF_TMR10_IRQHandler>0;0;0;0;0</TMR1_OVF_TMR10_IRQHandler>
+        <TMR1_TRG_HALL_TMR11_IRQHandler>0;0;0;0;0</TMR1_TRG_HALL_TMR11_IRQHandler>
+        <TMR1_CH_IRQHandler>0;0;0;0;0</TMR1_CH_IRQHandler>
         <TMR2_GLOBAL_IRQHandler>1;0;0;0;0</TMR2_GLOBAL_IRQHandler>
         <TMR4_GLOBAL_IRQHandler>1;0;0;0;0</TMR4_GLOBAL_IRQHandler>
         <SPI1_IRQHandler>0;0;0;0;0</SPI1_IRQHandler>
@@ -178,6 +195,7 @@
         <PinSub pinname="PA6" signalname="EXINT6" signaltype="3"/>
         <PinSub pinname="PB14" signalname="SPI2_MISO" signaltype="3"/>
         <PinSub pinname="PB15" signalname="SPI2_MOSI" signaltype="3"/>
+        <PinSub pinname="PA8" signalname="TMR1_CH1" signaltype="3"/>
         <PinSub pinname="PA9" signalname="SPI2_SCK" signaltype="3"/>
         <PinSub pinname="PA11" signalname="GPIO_Output" signaltype="3"/>
         <PinSub pinname="PA15" signalname="GPIO_Output" signaltype="3"/>
