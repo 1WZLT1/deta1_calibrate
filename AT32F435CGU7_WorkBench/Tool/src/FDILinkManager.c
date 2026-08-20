@@ -88,18 +88,18 @@ struct rt_semaphore imuSensorPack;
 
 void FDILinkSend_RAWData(uint64_t time)
 {
-		FDIData.ExRawData.Timestamp = time;
-		FDIData.ExRawData.IMU_DT = imuData.td->v2;
-		FDIData.ExRawData.count = IMU_COUNT;
 	
+	FDIData.ExRawData.Timestamp = time;
+	FDIData.ExRawData.IMU_DT = imuData.td->v2;
+	FDIData.ExRawData.count = IMU_COUNT;
 	#if IMU_COUNT >= 1
-		FDIData.ExRawData.Gyroscope_X_1 = imuData.raw_gyros[0];
-		FDIData.ExRawData.Gyroscope_Y_1 = imuData.raw_gyros[1];
-		FDIData.ExRawData.Gyroscope_Z_1 = imuData.raw_gyros[2];
-		FDIData.ExRawData.Accelerometer_X_1 = imuData.raw_accs[0];
-		FDIData.ExRawData.Accelerometer_Y_1 = imuData.raw_accs[1];
-		FDIData.ExRawData.Accelerometer_Z_1 = imuData.raw_accs[2];
-		FDIData.ExRawData.IMU_Temperature_1 = imuData.raw_temp;
+		FDIData.ExRawData.Gyroscope_X_1 = imuData.raw_gyros_1[0];
+		FDIData.ExRawData.Gyroscope_Y_1 = imuData.raw_gyros_1[1];
+		FDIData.ExRawData.Gyroscope_Z_1 = imuData.raw_gyros_1[2];
+		FDIData.ExRawData.Accelerometer_X_1 = imuData.raw_accs_1[0];
+		FDIData.ExRawData.Accelerometer_Y_1 = imuData.raw_accs_1[1];
+		FDIData.ExRawData.Accelerometer_Z_1 = imuData.raw_accs_1[2];
+		FDIData.ExRawData.IMU_Temperature_1 = imuData.raw_temp_1;
 	#endif
 	#if IMU_COUNT >= 2
 		FDIData.ExRawData.Gyroscope_X_2 = imuData.raw_gyros_2[0];
