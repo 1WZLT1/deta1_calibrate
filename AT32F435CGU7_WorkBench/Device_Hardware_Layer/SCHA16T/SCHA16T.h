@@ -6,6 +6,8 @@
 
 #include "rtio.h"
 
+#define DEG_TO_RAD 0.01745329251994329576923690768489
+
 #define SCHA16T_CS_enable     gpio_bits_write(GPIOA,GPIO_PINS_11,FALSE);    
 #define SCHA16T_CS_disable    gpio_bits_write(GPIOA,GPIO_PINS_11,TRUE);
 

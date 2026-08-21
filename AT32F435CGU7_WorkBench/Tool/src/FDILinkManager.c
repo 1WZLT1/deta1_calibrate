@@ -38,7 +38,7 @@ typedef FDILINK_COMPONENT_F3_B FDILink_RawData;
 
 __packed typedef struct
 {
-	int count;                 //0
+	int count;                 //0 //2
 	float Gyroscope_X_1     ;  //1
 	float Gyroscope_Y_1     ;  //2
 	float Gyroscope_Z_1     ;  //3
@@ -79,16 +79,16 @@ typedef struct
 	#endif
 	uint8_t              FDILinkSendBuffer[FDILINK_STNC_BUFEER_SIZE];
 }FDILinkManager_Status_t;
-static FDILinkManager_Status_t FDIData;
+FDILinkManager_Status_t FDIData;
 
 FDILink_t FDILink_Handle;
 struct rt_semaphore imuSensorPack;
+uint16_t rawdata_task_cnt = 1;
 
 #define IMU_COUNT 2
 
 void FDILinkSend_RAWData(uint64_t time)
 {
-	
 	FDIData.ExRawData.Timestamp = time;
 	FDIData.ExRawData.IMU_DT = imuData.td->v2;
 	FDIData.ExRawData.count = IMU_COUNT;
@@ -113,9 +113,12 @@ void FDILinkSend_RAWData(uint64_t time)
 	
 	ALIGN(8) static uint8_t fdi_buffer[256];
 	FDILink_Pack(fdi_buffer, &FDILink_Handle, 0xFB, (void*)&FDIData.ExRawData, sizeof(FDILink_RawData2));
-	Queue_Input(&FDIData.TxQueue,(void*)fdi_buffer, sizeof(FDILink_RawData2) + 8);
-	
-	rt_sem_release(&imuSensorPack);	
+	if(rawdata_task_cnt++ == 2)
+	{
+		rawdata_task_cnt = 1;
+		Queue_Input(&FDIData.TxQueue,(void*)fdi_buffer, sizeof(FDILink_RawData2) + 8);
+		rt_sem_release(&imuSensorPack);	
+	}
 }
 
 

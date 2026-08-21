@@ -10,10 +10,11 @@
 
 #define IMU_PRIORITY	    9
 
-#define AccChipToBody(b,c)	  do{b[0] = -c[1];b[1] = -c[0];b[2] = -c[2];}while(0)
-#define GyroChipToBody(b,c)	  do{b[0] = +c[2];b[1] = +c[1];b[2] = -c[0];}while(0)
-#define Acc2ChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
-#define Gyro2ChipToBody(b,c)  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
+#define AccChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
+#define GyroChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
+
+#define Acc2ChipToBody(b,c)	   do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
+#define Gyro2ChipToBody(b,c)   do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
 
 #define RUN_TASK_FREQ 200
 #define RUN_TASK_PERIOD (1000000/RUN_TASK_FREQ)
@@ -48,24 +49,24 @@ static void Imu_Task_Function(void* parameter)
 		__set_PRIMASK(1);
 		
 		float accs_1[3];
-		accs_1[0] = SCH1633.Accs[0];
-		accs_1[1] = SCH1633.Accs[1];
-		accs_1[2] = SCH1633.Accs[2];
+		accs_1[0] = sch16t_out.acc_x;
+		accs_1[1] = sch16t_out.acc_y;
+		accs_1[2] = sch16t_out.acc_z;
 		float accs_2[3];
-		accs_2[0] = ICM42688.Accs[0];
-		accs_2[1] = ICM42688.Accs[1];
-		accs_2[2] = ICM42688.Accs[2];
+		accs_2[0] = ICM42688_BufferData.Accs[0];
+		accs_2[1] = ICM42688_BufferData.Accs[1];
+		accs_2[2] = ICM42688_BufferData.Accs[2];
 		float gyros_1[3];
-		gyros_1[0] = SCH1633.Gyros[0];
-		gyros_1[1] = SCH1633.Gyros[1];
-		gyros_1[2] = SCH1633.Gyros[2];
+		gyros_1[0] = sch16t_out.gyro_x * DEG_TO_RAD;
+		gyros_1[1] = sch16t_out.gyro_y * DEG_TO_RAD;
+		gyros_1[2] = sch16t_out.gyro_z * DEG_TO_RAD;
 		float gyros_2[3];
-		gyros_2[0] = ICM42688.Gyros[0];
-		gyros_2[1] = ICM42688.Gyros[1];
-		gyros_2[2] = ICM42688.Gyros[2];
+		gyros_2[0] = ICM42688_BufferData.Gyros[0];
+		gyros_2[1] = ICM42688_BufferData.Gyros[1];
+		gyros_2[2] = ICM42688_BufferData.Gyros[2];
 		
-		float temperature_1 = SCH1633.Temp;
-		float temperature_2 = ICM42688.Temp;
+		float temperature_1 = sch16t_out.temp;
+		float temperature_2 = ICM42688_BufferData.Temp;
 
 		//数据平均滤波
 		// 记录acc、mag和压力读数的历史，以便更平滑

@@ -170,22 +170,22 @@
         <Ww>
           <count>0</count>
           <WinNumber>2</WinNumber>
-          <ItemText>accs_1</ItemText>
+          <ItemText>imuData.raw_gyros_1</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>2</WinNumber>
-          <ItemText>imuData.sum_raw_accs</ItemText>
+          <ItemText>imuData.raw_accs_1</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>2</WinNumber>
-          <ItemText>imuData.raw_accs</ItemText>
+          <ItemText>imuData.raw_temp_1</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>2</WinNumber>
-          <ItemText>imuData.raw_gyros</ItemText>
+          <ItemText>imuData.raw_gyros_2</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
@@ -195,7 +195,27 @@
         <Ww>
           <count>5</count>
           <WinNumber>2</WinNumber>
-          <ItemText>imuData.raw_gyros_2</ItemText>
+          <ItemText>imuData.raw_temp_2</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>FDIData.ExRawData</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>SCH1633</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>sch16t_out</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>size,0x0A</ItemText>
         </Ww>
       </WatchWindow2>
       <MemoryWindow1>

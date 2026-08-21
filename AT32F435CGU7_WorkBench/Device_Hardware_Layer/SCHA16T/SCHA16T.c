@@ -6,8 +6,6 @@
 #include <stdbool.h>
 
 
-#define DEG_TO_RAD 0.01745329251994329576923690768489
-
 SCH1_filter         Filter;
 
 #define SCHA16T_Transmit_DMA  DMA2_CHANNEL5
