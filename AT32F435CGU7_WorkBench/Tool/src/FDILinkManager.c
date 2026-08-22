@@ -200,3 +200,48 @@ void FDILinkManager_Init(void)
 	rt_sem_init(&imuSensorPack,  "", 0, 0);
 }
 
+uint8_t uart1_receive[1024];
+
+uint32_t comm_vaildlen_get()
+{
+	uint32_t offset = 0;
+	offset = sizeof(uart1_receive) - DMA1_CHANNEL1->dtcnt;
+	return offset;
+}
+
+void FDILink_Receive_Task(void *unused)
+{
+	while(1)
+	{
+		int len   = comm_vaildlen_get();
+		int count = 0;
+		for(int i=0;i<len;i++)
+		{
+			if(uart1_receive[i] == 0xfd)
+			{
+				count++;
+			}
+		}
+		if(count > 40)
+		{
+			NVIC_SystemReset();
+		}
+	}
+}
+
+ALIGN(8)
+uint8_t Serial_Receive_Task_Stack[512];
+static struct rt_thread Serial_Receive;
+void FDILink_Receive_Init()
+{
+	/*UART1_Receive*/
+	wk_dma_channel_config(DMA1_CHANNEL1, 
+                        (uint32_t)&USART1->dt, 
+                        (uint32_t)&uart1_receive, 
+												sizeof(uart1_receive) - 1);
+	dma_channel_enable(DMA1_CHANNEL1, TRUE);
+	
+	rt_thread_init(&Serial_Receive,"Serial_Receive",FDILink_Receive_Task,NULL,&Serial_Receive_Task_Stack[0],sizeof(Serial_Receive_Task_Stack),10,100);
+	rt_thread_startup(&Serial_Receive);
+}
+

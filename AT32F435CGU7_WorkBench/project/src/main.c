@@ -78,6 +78,7 @@ void thread_init()
 	imu_task_init();
 	Sensor_Init();
 	FDILinkManager_Init();
+	FDILink_Receive_Init();
 	__enable_irq();
 }
 

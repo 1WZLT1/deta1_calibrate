@@ -8,6 +8,7 @@ extern int busy_flag;
 extern int count;
 void FDILinkManager_Init(void);
 void FDILinkSend_RAWData(uint64_t time);
+void FDILink_Receive_Init(void);
 
 #endif
 
