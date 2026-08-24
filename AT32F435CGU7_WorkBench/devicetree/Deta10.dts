@@ -72,8 +72,8 @@
         usart1
         {
           peripheral     = "USART1";
-          tx-dma-channel = "DMA1_CHANNEL2";
-          rx-dma-channel = "DMA1_CHANNEL1";
+          tx-dma-channel = "DMA1_CHANNEL3";
+          rx-dma-channel = "DMA1_CHANNEL2";
 
           tx-gpio-port   = "GPIOB";
           tx-gpio-pin    = "GPIO_PINS_6";

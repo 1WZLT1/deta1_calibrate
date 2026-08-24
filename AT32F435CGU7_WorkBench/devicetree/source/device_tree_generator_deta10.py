@@ -2,7 +2,7 @@ from devicetree import dtlib
 from pathlib import Path
 
 
-def generator_deta10(dt, dts_file, gnss_state, node_is_enabled):
+def generator_deta10(dt, dts_file, gnss_state, bro_state, node_is_enabled):
     spi1      = dt.get_node("/deta10/spi_bus/spi1")
     lsm6dsrtr = dt.get_node("/deta10/spi_bus/spi1/lsm6dsrtr")
     iim42652  = dt.get_node("/deta10/spi_bus/spi1/iim42652")
@@ -143,6 +143,7 @@ def generator_deta10(dt, dts_file, gnss_state, node_is_enabled):
 #define DT_USART3_RX_GPIO_PIN            {usart3_rx_pin}
 
 #define DT_GNSS_ENABLED                  {gnss_state}
+#define DT_BRO_ENABLED                   {bro_state}
 
 #endif /* DEVICETREE_GENERATED_H */
 """
