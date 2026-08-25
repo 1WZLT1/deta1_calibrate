@@ -747,7 +747,7 @@ ARM Macro Assembler    Page 12
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=.\objects\startup_at32f435_437.d -o.\objects\startup_at32f43
-5_437.o -I.\RTE\RTOS -I.\RTE\_Deta40_AT32 -IC:\Users\Dell\AppData\Local\Arm\Pac
+5_437.o -I.\RTE\RTOS -I.\RTE\_Deta20_AT32 -IC:\Users\Dell\AppData\Local\Arm\Pac
 ks\ArteryTek\AT32F435_437_DFP\2.2.3\Device\Include -IC:\Users\Dell\AppData\Loca
 l\Arm\Packs\RealThread\RT-Thread\3.1.2\include -IC:\Keil_v5\ARM\CMSIS\Include -
 -predefine="__UVISION_VERSION SETA 529" --predefine="_RTE_ SETA 1" --predefine=

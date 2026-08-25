@@ -4,9 +4,10 @@
 #include <stdint.h>
 #include "rtthread.h"
 #include "TD.h"
+#include "devicetree_generated.h"
 
 #define IMU_SENSOR_HIST 50
-
+#define IMU_COUNT DT_IMU_COUNT
 #define EPSILON_SERIES 0
 
 typedef struct {

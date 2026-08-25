@@ -2,6 +2,7 @@
 #include "rtio.h"
 #include "math.h"
 
+#if (DT_IIM42652_ENABLED == 1)
 #define ICM42688_Transmit_DMA			DMA1_CHANNEL6
 #define ICM42688_Receive_DMA 			DMA1_CHANNEL5
 #define Device    								SPI1
@@ -575,39 +576,41 @@ void ICM42652_Read_INT1_Config(void)
     inv_io_hal_write_reg(&icm426xx_serif, MPUREG_REG_BANK_SEL, &reg, 1);
 		
 		inv_io_hal_read_reg(&icm426xx_serif, MPUREG_INTF_CONFIG5_B1, &reg, 1);//MPUREG_INTF_CONFIG5_B1 = 0x
-    rt_kprintf("MPUREG_INTF_CONFIG5_B1    = 0x%02X\r\n", reg);
+    //rt_kprintf("MPUREG_INTF_CONFIG5_B1    = 0x%02X\r\n", reg);
 		
 		inv_io_hal_read_reg(&icm426xx_serif, MPUREG_INTF_CONFIG5_B1, &reg, 1);//MPUREG_INTF_CONFIG5_B1 = 0x
-    rt_kprintf("MPUREG_INTF_CONFIG5_B1    = 0x%02X\r\n", reg);
+    //rt_kprintf("MPUREG_INTF_CONFIG5_B1    = 0x%02X\r\n", reg);
 	
 		//BANK0
     reg = 0x00;
     inv_io_hal_write_reg(&icm426xx_serif, MPUREG_REG_BANK_SEL, &reg, 1);
 
     inv_io_hal_read_reg(&icm426xx_serif, MPUREG_INT_CONFIG, &reg, 1);//MPUREG_INT_CONFIG = 0x03
-    rt_kprintf("INT_CONFIG    = 0x%02X\r\n", reg);
+    //rt_kprintf("INT_CONFIG    = 0x%02X\r\n", reg);
 
     inv_io_hal_read_reg(&icm426xx_serif, MPUREG_INT_CONFIG0, &reg, 1);//MPUREG_INT_CONFIG0 = 0x20
-    rt_kprintf("INT_CONFIG0   = 0x%02X\r\n", reg);
+    //rt_kprintf("INT_CONFIG0   = 0x%02X\r\n", reg);
 
     inv_io_hal_read_reg(&icm426xx_serif, MPUREG_INT_CONFIG1, &reg, 1);//MPUREG_INT_CONFIG1 = 0x00
-    rt_kprintf("INT_CONFIG1   = 0x%02X\r\n", reg);
+    //rt_kprintf("INT_CONFIG1   = 0x%02X\r\n", reg);
 
     inv_io_hal_read_reg(&icm426xx_serif, MPUREG_INT_SOURCE0, &reg, 1);//MPUREG_INT_SOURCE0 = 0x08
-    rt_kprintf("INT_SOURCE0   = 0x%02X\r\n", reg);
+    //rt_kprintf("INT_SOURCE0   = 0x%02X\r\n", reg);
 
     inv_io_hal_read_reg(&icm426xx_serif, MPUREG_INT_STATUS, &reg, 1);//MPUREG_INT_STATUS = 0x39
-    rt_kprintf("INT_STATUS    = 0x%02X\r\n", reg);
+    //rt_kprintf("INT_STATUS    = 0x%02X\r\n", reg);
 
     inv_io_hal_read_reg(&icm426xx_serif, MPUREG_PWR_MGMT_0, &reg, 1);//MPUREG_PWR_MGMT_0 = 0x0F
-    rt_kprintf("PWR_MGMT_0    = 0x%02X\r\n", reg);
+    //rt_kprintf("PWR_MGMT_0    = 0x%02X\r\n", reg);
 		
 		inv_io_hal_read_reg(&icm426xx_serif, MPUREG_INTF_CONFIG1, &reg, 1);//
-    rt_kprintf("PWR_MGMT_0    = 0x%02X\r\n", reg);
+    //rt_kprintf("PWR_MGMT_0    = 0x%02X\r\n", reg);
 		
 		inv_io_hal_read_reg(&icm426xx_serif, MPUREG_ACCEL_CONFIG0, &reg, 1);//
-    rt_kprintf("PWR_MGMT_0    = 0x%02X\r\n", reg);
+    //rt_kprintf("PWR_MGMT_0    = 0x%02X\r\n", reg);
 		
 		inv_io_hal_read_reg(&icm426xx_serif, MPUREG_GYRO_CONFIG0, &reg, 1);//
-    rt_kprintf("PWR_MGMT_0    = 0x%02X\r\n", reg);
+    //rt_kprintf("PWR_MGMT_0    = 0x%02X\r\n", reg);
 }
+#endif
+

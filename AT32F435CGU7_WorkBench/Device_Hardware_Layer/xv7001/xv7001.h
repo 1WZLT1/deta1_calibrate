@@ -1,9 +1,13 @@
 #ifndef __xv7001_h
 #define __xv7001_h
 
+#include "devicetree_generated.h"
+#if (DT_XV7011_ENABLED == 1)
+
 #include "stdint.h"
 #include "rtio.h"
 #include "sensor.h"
+
 
 #define xv7001_CS_enable     gpio_bits_write(GPIOA,GPIO_PINS_11,FALSE);    
 #define xv7001_CS_disable    gpio_bits_write(GPIOA,GPIO_PINS_11,TRUE);
@@ -29,5 +33,6 @@ void XV7001_Conversion(uint8_t *Data_Receive);
 extern uint8_t XV7001_Data_Recive[4];
 extern float xv7001_x_gyro_raw;
 extern XV7011_Status_Type XV7011;
+#endif
 #endif
 

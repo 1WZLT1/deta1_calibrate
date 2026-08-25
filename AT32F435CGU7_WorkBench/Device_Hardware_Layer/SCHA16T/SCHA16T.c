@@ -1,10 +1,11 @@
-#include "rthw.h"
 #include "SCHA16T.h"
 #include "spi_serve.h"
 
+#include "rthw.h"
 #include "at32f435_437_int.h"
 #include <stdbool.h>
 
+#if(DT_SCHA1633_ENABLED == 1)
 
 SCH1_filter         Filter;
 
@@ -587,3 +588,4 @@ void SCHA16T_Init()
 	else 
 		SCH1633_Initial = 1;
 }
+#endif

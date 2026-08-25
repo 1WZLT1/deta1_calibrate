@@ -43,6 +43,8 @@
 #include "scha16t.h"
 #include "icm42688.h"
 #include "FDILinkManager.h"
+
+#include "devicetree_generated.h"
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
@@ -67,6 +69,14 @@
 
 /* private function prototypes --------------------------------------------*/
 /* add user code begin function prototypes */
+#if (DT_LSM6DS3TR_ENABLED == 1) && (DT_IIM42652_ENABLED == 1)
+	#error "LSM6DS3TR and IIM42652 cannot be enabled at the same time"
+#endif
+
+#if (DT_LSM6DSRTR_ENABLED == 1) && (DT_IIM42652_ENABLED == 1)
+#error "LSM6DS3TR and IIM42652 cannot be enabled at the same time"
+#endif
+
 void SystemCoreClockUpdate(void)
 {
 	
@@ -111,7 +121,7 @@ uint8_t all_init = 0;
 int main(void)
 {
   /* add user code begin 1 */
-
+	
   /* add user code end 1 */
 
   /* system clock config. */
@@ -232,8 +242,18 @@ int main(void)
 	
 	gpio_bits_write(GPIOA,GPIO_PINS_15,TRUE);
 	
+	#if(DT_LSM6DS3TR_ENABLED == 1)
+	LSM6DSR_Init();
+	#endif
+	#if(DT_IIM42652_ENABLED == 1)
 	iotex_icm42605_init();
+	#endif
+	#if(DT_SCHA1633_ENABLED == 1)
 	SCHA16T_Init();
+	#endif
+	#if(DT_XV7011_ENABLED == 1)
+	xv7001_Init();
+	#endif
 	
 	thread_init();
 	all_init = 1;

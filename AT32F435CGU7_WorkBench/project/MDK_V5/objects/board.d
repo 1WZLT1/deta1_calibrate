@@ -2,7 +2,7 @@
 .\objects\board.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rthw.h
 .\objects\board.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\board.o: .\RTE\RTOS\rtconfig.h
-.\objects\board.o: .\RTE\_Deta40_AT32\RTE_Components.h
+.\objects\board.o: .\RTE\_Deta1_AT32\RTE_Components.h
 .\objects\board.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\board.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\board.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

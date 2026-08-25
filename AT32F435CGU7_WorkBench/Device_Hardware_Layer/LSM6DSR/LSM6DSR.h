@@ -4,8 +4,15 @@
 #include "stdint.h"
 #include "rtio.h"
 #include "sensor.h"
+#include "devicetree_generated.h"
 
+#if (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
+
+#if defined DT_LSM6DS3TR_ENABLED
+#define LSM6DSR_ID                           0x6AU
+#elif defined DT_LSM6DSRTR_ENABLED
 #define LSM6DSR_ID                           0x6BU
+#endif
 
 #define LSM6DSR_FUNC_CFG_ACCESS              0x01U
 typedef struct
@@ -1715,6 +1722,16 @@ typedef struct
 	volatile uint64_t           lastUpdate;
 }LSM6DSR_Status_Type;
 
+typedef struct {
+    float acc_x;
+    float acc_y;
+    float acc_z;
+    float gyro_x;
+    float gyro_y;
+    float gyro_z;
+    float temp;
+}LSM6DSR_t;
+
 #define LSM6DSR_CS_enable            gpio_bits_write(GPIOA,GPIO_PINS_15,FALSE);
 #define LSM6DSR_CS_disenable         gpio_bits_write(GPIOA,GPIO_PINS_15,TRUE);
 
@@ -1726,7 +1743,9 @@ void LSM6DSR_callback(rtio_t *rtio);
 void LSM6DSR_Conversion(uint8_t *Data_Receive);
 
 extern LSM6DSR_Status_Type LSM6DSR;
-extern rt_mq_t sensor_cqe_mq;
 extern uint8_t LSM6DR_Data_Receive[15];
 extern int LSM6DSR_Decode(LSM6DSR_Status_Type* LSM6DSR);
+extern LSM6DSR_t lsm6dsr_out;
+
+#endif
 #endif

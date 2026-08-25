@@ -21,6 +21,8 @@
  * ________________________________________________________________________________________________________
  */
 #ifdef HAS_ICM42688
+#include "devicetree_generated.h"
+#if DT_IIM42652_ENABLED == 1
 #include "../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxDefs.h"
 #include "../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxExtFunc.h"
 #include "../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxDriver_HL.h"
@@ -1633,3 +1635,4 @@ static void inv_icm426xx_format_data(const uint8_t endian, const uint8_t *in, ui
 		*out = (in[1] << 8) | in[0];
 }
 #endif //HAS_ICM42688
+#endif

@@ -21,6 +21,8 @@
  * ________________________________________________________________________________________________________
  */
 #ifdef HAS_ICM42688
+#include "devicetree_generated.h"
+#if DT_IIM42652_ENABLED == 1
 #include "../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxDefs.h"
 #include "../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxExtFunc.h"
 #include "../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxDriver_HL.h"
@@ -557,3 +559,4 @@ static int inv_icm426xx_reset_dmp(struct inv_icm426xx * s)
 	return status;
 }
 #endif //HAS_ICM42688
+#endif

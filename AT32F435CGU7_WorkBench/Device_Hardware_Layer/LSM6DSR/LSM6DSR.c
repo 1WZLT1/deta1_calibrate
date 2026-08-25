@@ -1,4 +1,5 @@
 #include "LSM6DSR.h"
+#if (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
 
 #include "spi_serve.h"
 #include "at32f435_437_gpio.h"
@@ -13,6 +14,7 @@
 static uint8_t whoamI;
 static int8_t LSM6DSR_Initial = 0;
 LSM6DSR_Status_Type LSM6DSR;
+LSM6DSR_t lsm6dsr_out;
 
 uint8_t LSM6DR_Data_Transmit[15];
 uint8_t LSM6DR_Data_Receive[15];
@@ -48,24 +50,24 @@ void LSM6DSR_Conversion(uint8_t *Data_Receive)
 	int primask = __get_PRIMASK();
 	__set_PRIMASK(1);
 	
-  LSM6DSR.Temp     = 25.0f     + (LSM6DSR_GetS16(&Data_Receive[0]) / 256.0f);
-  LSM6DSR.Accs[0]  = AccScale  *  LSM6DSR_GetS16(&Data_Receive[8]);
-  LSM6DSR.Accs[1]  = AccScale  *  LSM6DSR_GetS16(&Data_Receive[10]);
-  LSM6DSR.Accs[2]  = AccScale  *  LSM6DSR_GetS16(&Data_Receive[12]);
+  lsm6dsr_out.temp  = 25.0f     + (LSM6DSR_GetS16(&Data_Receive[0]) / 256.0f);
+  lsm6dsr_out.acc_x = AccScale  *  LSM6DSR_GetS16(&Data_Receive[8]);
+  lsm6dsr_out.acc_y = AccScale  *  LSM6DSR_GetS16(&Data_Receive[10]);
+  lsm6dsr_out.acc_z = AccScale  *  LSM6DSR_GetS16(&Data_Receive[12]);
 
-  LSM6DSR.Gyros[0] = GyroScale *  LSM6DSR_GetS16(&Data_Receive[2]);
-  LSM6DSR.Gyros[1] = GyroScale *  LSM6DSR_GetS16(&Data_Receive[4]);
-  LSM6DSR.Gyros[2] = GyroScale *  LSM6DSR_GetS16(&Data_Receive[6]);
+  lsm6dsr_out.gyro_x = GyroScale *  LSM6DSR_GetS16(&Data_Receive[2]);
+  lsm6dsr_out.gyro_y = GyroScale *  LSM6DSR_GetS16(&Data_Receive[4]);
+  lsm6dsr_out.gyro_z = GyroScale *  LSM6DSR_GetS16(&Data_Receive[6]);
 
-  RawBuffer_Input(&LSM6DSR.BufAccX,  LSM6DSR.Accs[0]);
-  RawBuffer_Input(&LSM6DSR.BufAccY,  LSM6DSR.Accs[1]);
-  RawBuffer_Input(&LSM6DSR.BufAccZ,  LSM6DSR.Accs[2]);
+  RawBuffer_Input(&LSM6DSR.BufAccX,  lsm6dsr_out.acc_x);
+  RawBuffer_Input(&LSM6DSR.BufAccY,  lsm6dsr_out.acc_y);
+  RawBuffer_Input(&LSM6DSR.BufAccZ,  lsm6dsr_out.acc_z);
 
-  RawBuffer_Input(&LSM6DSR.BufGyroX, LSM6DSR.Gyros[0]);
-  RawBuffer_Input(&LSM6DSR.BufGyroY, LSM6DSR.Gyros[1]);
-  RawBuffer_Input(&LSM6DSR.BufGyroZ, LSM6DSR.Gyros[2]);
+  RawBuffer_Input(&LSM6DSR.BufGyroX, lsm6dsr_out.gyro_x);
+  RawBuffer_Input(&LSM6DSR.BufGyroY, lsm6dsr_out.gyro_y);
+  RawBuffer_Input(&LSM6DSR.BufGyroZ, lsm6dsr_out.gyro_z);
 
-  RawBuffer_Input(&LSM6DSR.BufTemp,  LSM6DSR.Temp);
+  RawBuffer_Input(&LSM6DSR.BufTemp, lsm6dsr_out.temp);
 	__set_PRIMASK(primask);
 }
 
@@ -324,7 +326,7 @@ void LSM6DSR_Init()
 {
 	LSM6DR_Write_Reg(LSM6DSR_CTRL3_C,0x01,2);//rest
 	LSM6DR_Read_Reg(LSM6DSR_WHO_AM_I,&whoamI,2);
-	//if(whoamI != LSM6DSR_ID)return;
+	if(whoamI != LSM6DSR_ID)return;
 	LSM6DSR_I3C_Disable();
 	LSM6DR_SPI4Write();
 	LSM6DR_Updata();
@@ -336,4 +338,5 @@ void LSM6DSR_Init()
 	LSM6DR_GYRO_LPF_CONFIG();
 	LSM6DSR_Initial = 1;
 }
+#endif
 

@@ -1,6 +1,8 @@
 #ifndef __icm42688_h
 #define __icm42688_h
 
+#include "devicetree_generated.h"
+#if (DT_IIM42652_ENABLED == 1)
 #include "spi_serve.h"
 
 #include "Icm426xxDriver_HL.h"
@@ -99,6 +101,8 @@ extern ICM42688_Status_Type ICM42688;
 extern uint8_t ICM42688_Data_Receive[30];
 extern ICM42688_BufferData_Type ICM42688_BufferData;
 //extern static uint8_t whoamI1;
+#endif
+
 
 #endif
 

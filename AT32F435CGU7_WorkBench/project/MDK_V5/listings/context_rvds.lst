@@ -364,7 +364,7 @@ ARM Macro Assembler    Page 6
               E000ED08 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
 interwork --depend=.\objects\context_rvds.d -o.\objects\context_rvds.o -I.\RTE\
-RTOS -I.\RTE\_Deta40_AT32 -IC:\Users\Dell\AppData\Local\Arm\Packs\ArteryTek\AT3
+RTOS -I.\RTE\_Deta20_AT32 -IC:\Users\Dell\AppData\Local\Arm\Packs\ArteryTek\AT3
 2F435_437_DFP\2.2.3\Device\Include -IC:\Users\Dell\AppData\Local\Arm\Packs\Real
 Thread\RT-Thread\3.1.2\include -IC:\Keil_v5\ARM\CMSIS\Include --predefine="__UV
 ISION_VERSION SETA 529" --predefine="_RTE_ SETA 1" --predefine="AT32F435CGU7 SE

@@ -20,6 +20,7 @@ float RawBuffer_Output(RawBuffer_t* buffer);
 
 extern rt_mailbox_t sensor_sqe_mb;
 extern rt_mailbox_t sensor_cqe_mb;
+extern rt_mq_t sensor_cqe_mq;
 
 #endif
 

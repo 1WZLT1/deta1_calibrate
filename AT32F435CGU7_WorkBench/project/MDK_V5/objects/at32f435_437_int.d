@@ -25,7 +25,7 @@
 .\objects\at32f435_437_int.o: ..\..\Device_Application_Layer\inc\imu_task.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\at32f435_437_int.o: .\RTE\RTOS\rtconfig.h
-.\objects\at32f435_437_int.o: .\RTE\_Deta40_AT32\RTE_Components.h
+.\objects\at32f435_437_int.o: .\RTE\_Deta1_AT32\RTE_Components.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\at32f435_437_int.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
@@ -44,6 +44,7 @@
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtm.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\at32f435_437_int.o: ..\..\Tool\inc\TD.h
+.\objects\at32f435_437_int.o: ..\..\devicetree\devicetree_generated.h
 .\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\rtio\inc\rtio.h
 .\objects\at32f435_437_int.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\at32f435_437_int.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
@@ -53,15 +54,6 @@
 .\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\xv7001\xv7001.h
 .\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\SCHA16T\SCHA16T.h
 .\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\ICM42688\icm42688.h
-.\objects\at32f435_437_int.o: ..\..\Device_Services_Layer\inc\spi_serve.h
-.\objects\at32f435_437_int.o: ..\inc\wk_dma.h
-.\objects\at32f435_437_int.o: ..\inc\at32f435_437_wk_config.h
-.\objects\at32f435_437_int.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\at32f435_437_int.o: ..\..\Device_Hardware_Layer\ICM42688\Invn\Drivers\Icm426xx\Icm426xxDriver_HL.h
-.\objects\at32f435_437_int.o: ..\inc\../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxDefs.h
-.\objects\at32f435_437_int.o: ..\inc\../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxTransport.h
-.\objects\at32f435_437_int.o: ..\inc\../../Device_Hardware_Layer/ICM42688/Invn/InvError.h
-.\objects\at32f435_437_int.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\at32f435_437_int.o: ..\..\Tool\inc\FDILinkManager.h
 .\objects\at32f435_437_int.o: ..\..\Device_Services_Layer\inc\uart_serve.h
 .\objects\at32f435_437_int.o: ..\..\Tool\inc\queue.h

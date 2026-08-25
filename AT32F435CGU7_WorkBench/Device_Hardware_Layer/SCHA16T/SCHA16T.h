@@ -1,6 +1,10 @@
 #ifndef __SCHA16T_H
 #define __SCHA16T_H
 
+#include "devicetree_generated.h"
+
+#if(DT_SCHA1633_ENABLED == 1)
+
 #include "stdint.h"
 #include "sensor.h"
 
@@ -194,4 +198,5 @@ void SCHA16T_Conversion(uint8_t *Data_Receive);
 int SCH1633_Decode(SCH1633_Status_Type* SCH1633);
 static uint64_t SCH16T_MakeFrame48(const uint8_t *p);
 
+#endif
 #endif

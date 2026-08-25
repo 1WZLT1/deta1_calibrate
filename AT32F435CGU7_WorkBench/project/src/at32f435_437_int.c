@@ -38,6 +38,7 @@
 #include "icm42688.h"
 #include "FDILinkManager.h"
 
+#include "devicetree_generated.h"
 /* add user code end private includes */
 
 /* private typedef -----------------------------------------------------------*/
@@ -86,7 +87,7 @@ int64_t CortexM_Get_Us(void)
 
 /* external variables ---------------------------------------------------------*/
 /* add user code begin external variables */
-
+uint32_t tmr4_clock_prescaler;
 /* add user code end external variables */
 
 /**
@@ -261,7 +262,11 @@ void EXINT9_5_IRQHandler(void)
 	drdy_last_us = drdy_now_us;
 	
 	exint_flag_clear(EXINT_LINE_6);	
-	if(all_init == 1)ICM42688_callback(&rtio_spi1);
+	#if (DT_IIM42652_ENABLED == 1) 
+		if(all_init == 1)ICM42688_callback(&rtio_spi1);
+	#elif (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
+		if(all_init == 1)LSM6DSR_callback(&rtio_spi1);
+	#endif
 	rt_interrupt_leave();
   /* add user code end EXINT9_5_IRQ 0 */
   /* add user code begin EXINT9_5_IRQ 1 */
@@ -304,7 +309,18 @@ void TMR4_GLOBAL_IRQHandler(void)
 	if(TMR4->ists & 0x01)
 	{
 		rt_interrupt_enter();
+		#if(DT_SCHA1633_ENABLED == 1)
 		if(all_init == 1)SCHA16T_callback(&rtio_spi2);
+		#endif
+		
+		if(++tmr4_clock_prescaler == 10)
+		{
+			tmr4_clock_prescaler = 0;
+			#if(DT_XV7011_ENABLED == 1)
+			if(all_init == 1)xv7001_callback(&rtio_spi2);
+			#endif
+		}
+		
 		TMR4->ists &= ~(0x01);
 		rt_interrupt_leave();
 	}
@@ -400,6 +416,7 @@ void DMA1_Channel5_IRQHandler(void)
 		rtio_node_t *node = rtio_spi1.current_node;
 		if(node != NULL)
 		{		
+			#if (DT_IIM42652_ENABLED == 1) 
 			if(rtio_spi1.current_node->Device_Name == ICM42688_E)
 			{
 				ICM42688_CS_disenable;
@@ -408,6 +425,16 @@ void DMA1_Channel5_IRQHandler(void)
 				rt_memcpy(&dev.rx,&ICM42688_Data_Receive[1], 14);
 				rt_mq_send(sensor_cqe_mq,&dev, sizeof(rtio_node_rx_t));
 			}
+			#elif (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
+			if(rtio_spi1.current_node->Device_Name == LSM6DSR_E)
+			{
+				LSM6DSR_CS_disenable;
+				rtio_node_rx_t dev;
+				dev.Device_Name = LSM6DSR_E;
+				rt_memcpy(&dev.rx,&LSM6DR_Data_Receive,sizeof(LSM6DR_Data_Receive));
+				rt_mq_send(sensor_cqe_mq,&dev, sizeof(rtio_node_rx_t));
+			}
+			#endif
 			
 			rtio_spi1.current_node = NULL;
 			rtio_release(&rtio_spi1,node);
@@ -457,10 +484,10 @@ void DMA2_Channel4_IRQHandler(void)
 		rt_interrupt_enter();
 		dma_flag_clear(DMA2_FDT4_FLAG);
 		
-		#if(1)
 		rtio_node_t *node = rtio_spi2.current_node;
 		if(node != NULL)
 		{
+			#if(DT_SCHA1633_ENABLED == 1)
 			if(rtio_spi2.current_node->Device_Name == SCH16T_E)
 			{
 				SCHA16T_CS_disable;
@@ -472,32 +499,23 @@ void DMA2_Channel4_IRQHandler(void)
 				
 				rt_mq_send(sensor_cqe_mq,&dev, sizeof(rtio_node_rx_t));
 			}
+			#endif
 			
-			rtio_spi2.current_node = NULL;
-			rtio_release(&rtio_spi2,node);
-			rtio_spi2.Dev_busy_State = Dev_IDLE; 
-		}
-		#else 
-		rtio_node_t *node = rtio_spi2.current_node;
-		if(node != NULL)
-		{
+			#if(DT_XV7011_ENABLED == 1)
 			if(rtio_spi2.current_node->Device_Name == XV7001_E)
 			{
 				xv7001_CS_disable;
-				
 				rtio_node_rx_t dev;
 				dev.Device_Name = XV7001_E;
-				
 				rt_memcpy(&dev.rx,&XV7001_Data_Recive,sizeof(XV7001_Data_Recive));
-				
 				rt_mq_send(sensor_cqe_mq,&dev, sizeof(rtio_node_rx_t));
 			}
+			#endif
 			
 			rtio_spi2.current_node = NULL;
 			rtio_release(&rtio_spi2,node);
 			rtio_spi2.Dev_busy_State = Dev_IDLE; 
-		}
-		#endif
+		}	
 		
 		dma_channel_enable(DMA2_CHANNEL4, FALSE);
 		rt_interrupt_leave();

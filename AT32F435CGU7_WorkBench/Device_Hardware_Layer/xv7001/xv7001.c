@@ -1,5 +1,6 @@
 #include "xv7001.h"
 
+#if (DT_XV7011_ENABLED == 1)
 #include "spi_serve.h"
 #include "sensor.h"
 
@@ -164,3 +165,4 @@ void xv7001_Init()
   xv7001_Write_Reg(0x06,0x00,1);
   rt_thread_delay(10);
 }
+#endif

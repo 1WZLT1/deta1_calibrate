@@ -34,8 +34,6 @@ __packed typedef struct
 
 typedef FDILINK_COMPONENT_F3_B FDILink_RawData;
 
-#define USE_EXRAWDATA 1
-
 __packed typedef struct
 {
 	int count;                 //0 //2
@@ -66,17 +64,21 @@ __packed typedef struct
 }FDILINK_COMPONENT_FB;
 typedef FDILINK_COMPONENT_FB FDILink_RawData2;
 
+#if (DT_HardWare_Version == 0x0001030000 || DT_HardWare_Version == 0x0001020000)
+#define USE_EXRAWDATA 1
+#else
+#define USE_EXRAWDATA 0
+#endif 
+
 typedef struct
 {
 	Queue_t              TxQueue;
 	uint8_t              TxQueueBuffer[FDILINK_STNC_BUFEER_SIZE * 2];
-	#if SIMULINK_MODE != 5
 		#if USE_EXRAWDATA == 0
 			FDILink_RawData RawData;
 		#else
 			FDILink_RawData2    ExRawData;
 		#endif
-	#endif
 	uint8_t              FDILinkSendBuffer[FDILINK_STNC_BUFEER_SIZE];
 }FDILinkManager_Status_t;
 FDILinkManager_Status_t FDIData;
@@ -85,26 +87,26 @@ FDILink_t FDILink_Handle;
 struct rt_semaphore imuSensorPack;
 uint16_t rawdata_task_cnt = 1;
 
-#define IMU_COUNT 2
-
 void FDILinkSend_RAWData(uint64_t time)
 {
+	#if (USE_EXRAWDATA == 1)
 	FDIData.ExRawData.Timestamp = time;
 	FDIData.ExRawData.IMU_DT = imuData.td->v2;
 	FDIData.ExRawData.count = IMU_COUNT;
+	
 	#if IMU_COUNT >= 1
-		FDIData.ExRawData.Gyroscope_X_1 = imuData.raw_gyros_1[0];
-		FDIData.ExRawData.Gyroscope_Y_1 = imuData.raw_gyros_1[1];
-		FDIData.ExRawData.Gyroscope_Z_1 = imuData.raw_gyros_1[2];
+		FDIData.ExRawData.Gyroscope_X_1     = imuData.raw_gyros_1[0];
+		FDIData.ExRawData.Gyroscope_Y_1     = imuData.raw_gyros_1[1];
+		FDIData.ExRawData.Gyroscope_Z_1     = imuData.raw_gyros_1[2];
 		FDIData.ExRawData.Accelerometer_X_1 = imuData.raw_accs_1[0];
 		FDIData.ExRawData.Accelerometer_Y_1 = imuData.raw_accs_1[1];
 		FDIData.ExRawData.Accelerometer_Z_1 = imuData.raw_accs_1[2];
 		FDIData.ExRawData.IMU_Temperature_1 = imuData.raw_temp_1;
 	#endif
 	#if IMU_COUNT >= 2
-		FDIData.ExRawData.Gyroscope_X_2 = imuData.raw_gyros_2[0];
-		FDIData.ExRawData.Gyroscope_Y_2 = imuData.raw_gyros_2[1];
-		FDIData.ExRawData.Gyroscope_Z_2 = imuData.raw_gyros_2[2];
+		FDIData.ExRawData.Gyroscope_X_2     = imuData.raw_gyros_2[0];
+		FDIData.ExRawData.Gyroscope_Y_2     = imuData.raw_gyros_2[1];
+		FDIData.ExRawData.Gyroscope_Z_2     = imuData.raw_gyros_2[2];
 		FDIData.ExRawData.Accelerometer_X_2 = imuData.raw_accs_2[0];
 		FDIData.ExRawData.Accelerometer_Y_2 = imuData.raw_accs_2[1];
 		FDIData.ExRawData.Accelerometer_Z_2 = imuData.raw_accs_2[2];
@@ -119,6 +121,27 @@ void FDILinkSend_RAWData(uint64_t time)
 		Queue_Input(&FDIData.TxQueue,(void*)fdi_buffer, sizeof(FDILink_RawData2) + 8);
 		rt_sem_release(&imuSensorPack);	
 	}
+	#else 
+	FDIData.RawData.Accelerometer_X = imuData.raw_accs_1[0];
+	FDIData.RawData.Accelerometer_Y = imuData.raw_accs_1[1];
+	FDIData.RawData.Accelerometer_Z = imuData.raw_accs_1[2];
+	FDIData.RawData.Gyroscope_X     = imuData.raw_gyros_1[0];
+	FDIData.RawData.Gyroscope_Y     = imuData.raw_gyros_1[1];
+	FDIData.RawData.Gyroscope_Z     = imuData.raw_gyros_1[2];
+	FDIData.RawData.Magnetometer_X  = 0;
+	FDIData.RawData.Magnetometer_Y  = 0;
+	FDIData.RawData.Magnetometer_Z  = 0;
+	FDIData.RawData.IMU_Temperature = imuData.raw_temp_1;
+	FDIData.RawData.Timestamp = time;
+	ALIGN(8) static uint8_t fdi_buffer[256];
+	FDILink_Pack(fdi_buffer, &FDILink_Handle, 0xF3, (uint8_t*)&FDIData.RawData, sizeof(FDILink_RawData));
+	if(rawdata_task_cnt++ == 2)
+	{
+		rawdata_task_cnt = 1;
+		Queue_Input(&FDIData.TxQueue,(void*)fdi_buffer, sizeof(FDILink_RawData) + 8);
+		rt_sem_release(&imuSensorPack);	
+	}
+	#endif 
 }
 
 

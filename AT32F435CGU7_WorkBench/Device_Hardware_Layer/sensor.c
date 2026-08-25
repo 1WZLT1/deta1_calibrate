@@ -94,22 +94,30 @@ void Sensor_Cqe_Task_Function(void* parameter)
 		
 		if(dev.Device_Name == LSM6DSR_E)
 		{
+			#if (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
 			LSM6DSR_Conversion(dev.rx);
+			#endif
 		}
 		
 		if(dev.Device_Name == XV7001_E)
 		{
+			#if(DT_XV7011_ENABLED == 1)
 			XV7001_Conversion(dev.rx);
+			#endif
 		}
 		
 		if(dev.Device_Name == SCH16T_E)
 		{
+			#if(DT_SCHA1633_ENABLED == 1)
 			SCHA16T_Conversion(dev.rx);
+			#endif
 		}
 		
 		if(dev.Device_Name == ICM42688_E)
 		{
+			#if (DT_IIM42652_ENABLED == 1)
 			ICM42688_Conversion(dev.rx);
+			#endif
 		}
 	}
 }

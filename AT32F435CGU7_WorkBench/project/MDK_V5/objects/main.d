@@ -33,7 +33,7 @@
 .\objects\main.o: ..\..\Device_Application_Layer\inc\imu_task.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\main.o: .\RTE\RTOS\rtconfig.h
-.\objects\main.o: .\RTE\_Deta40_AT32\RTE_Components.h
+.\objects\main.o: .\RTE\_Deta1_AT32\RTE_Components.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
@@ -52,6 +52,7 @@
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtm.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\main.o: ..\..\Tool\inc\TD.h
+.\objects\main.o: ..\..\devicetree\devicetree_generated.h
 .\objects\main.o: ..\..\Device_Hardware_Layer\LSM6DSR\lsm6dsr.h
 .\objects\main.o: ..\..\Device_Hardware_Layer\rtio\inc\rtio.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
@@ -61,13 +62,6 @@
 .\objects\main.o: ..\..\Device_Hardware_Layer\xv7001\xv7001.h
 .\objects\main.o: ..\..\Device_Hardware_Layer\SCHA16T\scha16t.h
 .\objects\main.o: ..\..\Device_Hardware_Layer\ICM42688\icm42688.h
-.\objects\main.o: ..\..\Device_Services_Layer\inc\spi_serve.h
-.\objects\main.o: ..\..\Device_Hardware_Layer\ICM42688\Invn\Drivers\Icm426xx\Icm426xxDriver_HL.h
-.\objects\main.o: ..\inc\../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxDefs.h
-.\objects\main.o: ..\inc\../../Device_Hardware_Layer/ICM42688/Invn/Drivers/Icm426xx/Icm426xxTransport.h
-.\objects\main.o: ..\inc\../../Device_Hardware_Layer/ICM42688/Invn/InvError.h
-.\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\objects\main.o: ..\inc\at32f435_437_int.h
 .\objects\main.o: ..\..\Tool\inc\FDILinkManager.h
 .\objects\main.o: ..\..\Device_Services_Layer\inc\uart_serve.h
 .\objects\main.o: ..\..\Tool\inc\queue.h
