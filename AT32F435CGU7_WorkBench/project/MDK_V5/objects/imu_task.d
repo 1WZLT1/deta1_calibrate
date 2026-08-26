@@ -3,7 +3,7 @@
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\imu_task.o: .\RTE\RTOS\rtconfig.h
-.\objects\imu_task.o: .\RTE\_Deta1_AT32\RTE_Components.h
+.\objects\imu_task.o: .\RTE\_Deta40_AT32\RTE_Components.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
@@ -26,12 +26,12 @@
 .\objects\imu_task.o: ..\..\Device_Hardware_Layer\sensor.h
 .\objects\imu_task.o: ..\..\Device_Hardware_Layer\xv7001\xv7001.h
 .\objects\imu_task.o: ..\..\Device_Hardware_Layer\SCHA16T\SCHA16T.h
-.\objects\imu_task.o: ..\..\Device_Hardware_Layer\ICM42688\icm42688.h
-.\objects\imu_task.o: ..\..\Device_Hardware_Layer\LSM6DSR\lsm6dsr.h
 .\objects\imu_task.o: ..\..\Device_Hardware_Layer\rtio\inc\rtio.h
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\objects\imu_task.o: ..\..\Device_Hardware_Layer\rtio\inc\util.h
+.\objects\imu_task.o: ..\..\Device_Hardware_Layer\ICM42688\icm42688.h
+.\objects\imu_task.o: ..\..\Device_Hardware_Layer\LSM6DSR\lsm6dsr.h
 .\objects\imu_task.o: ..\..\Tool\inc\FDIlinkManager.h
 .\objects\imu_task.o: ..\..\Device_Services_Layer\inc\uart_serve.h
 .\objects\imu_task.o: ..\..\libraries\drivers\inc\at32f435_437_dma.h

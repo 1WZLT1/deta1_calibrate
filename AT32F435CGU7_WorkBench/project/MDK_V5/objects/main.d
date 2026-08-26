@@ -33,7 +33,7 @@
 .\objects\main.o: ..\..\Device_Application_Layer\inc\imu_task.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\main.o: .\RTE\RTOS\rtconfig.h
-.\objects\main.o: .\RTE\_Deta1_AT32\RTE_Components.h
+.\objects\main.o: .\RTE\_Deta40_AT32\RTE_Components.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\main.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

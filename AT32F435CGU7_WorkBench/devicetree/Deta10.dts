@@ -23,7 +23,7 @@
               compatible   = "st,lsm6dsrtr";
               cs-gpio-port = "GPIOA";
               cs-gpio-pin  = "GPIO_PINS_15";
-              status       = "enable";
+              status       = "disenable";
             };
 
             iim42652
@@ -31,7 +31,7 @@
               compatible   = "invensense,iim42652";
               cs-gpio-port = "GPIOA";
               cs-gpio-pin  = "GPIO_PINS_15";
-              status       = "disenable";
+              status       = "enable";
             };
 
             spa06-003

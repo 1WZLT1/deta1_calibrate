@@ -25,7 +25,7 @@
 .\objects\at32f435_437_int.o: ..\..\Device_Application_Layer\inc\imu_task.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\at32f435_437_int.o: .\RTE\RTOS\rtconfig.h
-.\objects\at32f435_437_int.o: .\RTE\_Deta1_AT32\RTE_Components.h
+.\objects\at32f435_437_int.o: .\RTE\_Deta40_AT32\RTE_Components.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\at32f435_437_int.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\at32f435_437_int.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

@@ -115,20 +115,35 @@ static void Imu_Task_Function(void* parameter)
 			accs_1[1] = sch16t_out.acc_y;
 			accs_1[2] = sch16t_out.acc_z;
 			
+			gyros_1[0] = sch16t_out.gyro_x * DEG_TO_RAD;
+			gyros_1[1] = sch16t_out.gyro_y * DEG_TO_RAD;
+			gyros_1[2] = sch16t_out.gyro_z * DEG_TO_RAD;
+		
+			temperature_1 = sch16t_out.temp;
+			
+			#if (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
+			accs_2[0]  = lsm6dsr_out.acc_x;
+			accs_2[1]  = lsm6dsr_out.acc_y;
+			accs_2[2]  = lsm6dsr_out.acc_z;
+			gyros_2[0] = lsm6dsr_out.gyro_x;
+			gyros_2[1] = lsm6dsr_out.gyro_y;
+			gyros_2[2] = lsm6dsr_out.gyro_z;
+			
+			temperature_2 = lsm6dsr_out.temp;
+			
+			#elif (DT_IIM42652_ENABLED == 1)
 			accs_2[0] = ICM42688_BufferData.Accs[0];
 			accs_2[1] = ICM42688_BufferData.Accs[1];
 			accs_2[2] = ICM42688_BufferData.Accs[2];
 			
-			gyros_1[0] = sch16t_out.gyro_x * DEG_TO_RAD;
-			gyros_1[1] = sch16t_out.gyro_y * DEG_TO_RAD;
-			gyros_1[2] = sch16t_out.gyro_z * DEG_TO_RAD;
-			
 			gyros_2[0] = ICM42688_BufferData.Gyros[0];
 			gyros_2[1] = ICM42688_BufferData.Gyros[1];
 			gyros_2[2] = ICM42688_BufferData.Gyros[2];
-		
-			temperature_1 = sch16t_out.temp;
+			
 			temperature_2 = ICM42688_BufferData.Temp;
+			
+			#endif
+			
 		}
 		#endif
 		
