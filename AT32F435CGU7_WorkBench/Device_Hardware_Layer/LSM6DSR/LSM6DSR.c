@@ -11,8 +11,8 @@
 #define LSM6DSR_Receive_DMA          DMA1_CHANNEL5
 #define Device                       SPI1 
 
-static uint8_t whoamI;
-static int8_t LSM6DSR_Initial = 0;
+uint8_t whoamI;
+int8_t LSM6DSR_Initial = 0;
 LSM6DSR_Status_Type LSM6DSR;
 LSM6DSR_t lsm6dsr_out;
 
@@ -192,6 +192,7 @@ void LSM6DR_SPI4Write()
 	LSM6DR_Write_Reg(LSM6DSR_CTRL3_C,CTRL3_Register,2);
 }
 
+uint8_t cs = 0;
 void LSM6DR_INT1_DRDY()
 {
 	uint8_t CTRL3_Register;
@@ -209,7 +210,13 @@ void LSM6DR_INT1_DRDY()
 	INT1_CTRL_Register = (0x01 << 7);
 	#endif
 	LSM6DR_Write_Reg(LSM6DSR_INT1_CTRL,INT1_CTRL_Register,2);
+	cs = INT1_CTRL_Register;
 	LSM6DR_Read_Reg(LSM6DSR_INT1_CTRL,&INT1_CTRL_Register,2);	
+	
+	if(cs != INT1_CTRL_Register)
+	{
+		cs = 2;
+	}
 	
 	uint8_t COUNTER_BDR_Register;
 	LSM6DR_Read_Reg(LSM6DSR_COUNTER_BDR_REG1,&COUNTER_BDR_Register,2);	
@@ -322,11 +329,18 @@ void LSM6DR_GYRO_LPF_CONFIG()
 	LSM6DR_Write_Reg(LSM6DSR_CTRL4_C,CTRL4_Register,2);
 }
 
+uint8_t STATUS_REG;
+uint8_t LSM6DSR_STATUS_READ()
+{
+	LSM6DR_Read_Reg(LSM6DSR_STATUS_REG,&STATUS_REG,2);	
+}
 void LSM6DSR_Init()
 {
 	LSM6DR_Write_Reg(LSM6DSR_CTRL3_C,0x01,2);//rest
+	rt_thread_delay(15);
+	
 	LSM6DR_Read_Reg(LSM6DSR_WHO_AM_I,&whoamI,2);
-	if(whoamI != LSM6DSR_ID)return;
+	if(whoamI != 0x6a)return;
 	LSM6DSR_I3C_Disable();
 	LSM6DR_SPI4Write();
 	LSM6DR_Updata();
@@ -336,6 +350,7 @@ void LSM6DSR_Init()
 	LM6DR_FREQ_CONFIG();
 	LSM6DR_ACC_LPF_CONFIG();
 	LSM6DR_GYRO_LPF_CONFIG();
+	LSM6DSR_STATUS_READ();
 	LSM6DSR_Initial = 1;
 }
 #endif

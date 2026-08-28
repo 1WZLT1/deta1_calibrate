@@ -242,7 +242,7 @@ int main(void)
 	
 	gpio_bits_write(GPIOA,GPIO_PINS_15,TRUE);
 	
-	#if(DT_LSM6DS3TR_ENABLED == 1)
+	#if (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
 	LSM6DSR_Init();
 	#endif
 	#if(DT_IIM42652_ENABLED == 1)
