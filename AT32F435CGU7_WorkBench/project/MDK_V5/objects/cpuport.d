@@ -1,7 +1,7 @@
 .\objects\cpuport.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\libcpu\arm\cortex-m4\cpuport.c
 .\objects\cpuport.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\cpuport.o: .\RTE\RTOS\rtconfig.h
-.\objects\cpuport.o: .\RTE\_Deta40_AT32\RTE_Components.h
+.\objects\cpuport.o: .\RTE\_Deta400_AT32\RTE_Components.h
 .\objects\cpuport.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\cpuport.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\cpuport.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

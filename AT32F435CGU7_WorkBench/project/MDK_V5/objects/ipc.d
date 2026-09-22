@@ -1,7 +1,7 @@
 .\objects\ipc.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\src\ipc.c
 .\objects\ipc.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\ipc.o: .\RTE\RTOS\rtconfig.h
-.\objects\ipc.o: .\RTE\_Deta40_AT32\RTE_Components.h
+.\objects\ipc.o: .\RTE\_Deta400_AT32\RTE_Components.h
 .\objects\ipc.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\ipc.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\ipc.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

@@ -133,5 +133,16 @@
           status         = "enable";
         };
       };
+
+      tmr
+      {
+        tmr2
+        {
+            peripheral        = "TMR2";
+            clock_freq        = "288000000";
+            prescaler_value   = "287";
+            auto_reload_value = "999";
+        };
+      };
     };
 };

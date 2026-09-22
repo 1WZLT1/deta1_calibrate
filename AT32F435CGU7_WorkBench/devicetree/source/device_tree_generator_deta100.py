@@ -2,23 +2,25 @@ from devicetree import dtlib
 from pathlib import Path
 
 
-def generator_deta40(dt, dts_file, gnss_state, bro_state, node_is_enabled):
-    spi1      = dt.get_node("/deta40/spi_bus/spi1")
-    lsm6dsrtr = dt.get_node("/deta40/spi_bus/spi1/lsm6dsrtr")
-    iim42652  = dt.get_node("/deta40/spi_bus/spi1/iim42652")
-    spa06     = dt.get_node("/deta40/spi_bus/spi1/spa06-003")
+def generator_deta100(dt, dts_file, gnss_state, bro_state, node_is_enabled):
+    spi1      = dt.get_node("/deta100/spi_bus/spi1")
+    lsm6dsrtr = dt.get_node("/deta100/spi_bus/spi1/lsm6dsrtr")
+    iim42652  = dt.get_node("/deta100/spi_bus/spi1/iim42652")
+    spa06     = dt.get_node("/deta100/spi_bus/spi1/spa06-003")
 
-    spi2      = dt.get_node("/deta40/spi_bus/spi2")
-    scha1633  = dt.get_node("/deta40/spi_bus/spi2/scha1633")
+    spi2      = dt.get_node("/deta100/spi_bus/spi2")
+    scha1633  = dt.get_node("/deta100/spi_bus/spi2/scha1633")
 
-    i2c2      = dt.get_node("/deta40/i2c_bus/i2c2")
-    qmc6309   = dt.get_node("/deta40/i2c_bus/i2c2/qmc6309")
+    i2c2      = dt.get_node("/deta100/i2c_bus/i2c2")
+    qmc6309   = dt.get_node("/deta100/i2c_bus/i2c2/qmc6309")
 
-    usart1    = dt.get_node("/deta40/usart_bus/usart1")
-    usart2    = dt.get_node("/deta40/usart_bus/usart2")
-    usart3    = dt.get_node("/deta40/usart_bus/usart3")
+    usart1    = dt.get_node("/deta100/usart_bus/usart1")
+    usart2    = dt.get_node("/deta100/usart_bus/usart2")
+    usart3    = dt.get_node("/deta100/usart_bus/usart3")
+    uart4     = dt.get_node("/deta100/usart_bus/uart4")
+    ec600     = dt.get_node("/deta100/usart_bus/uart4/ec600")
 
-    tmr2      = dt.get_node("/deta40/tmr/tmr2")
+    tmr2      = dt.get_node("/deta100/tmr/tmr2")
 
     # SPI1
     spi1_tx_dma = spi1.props["tx-dma-channel"].to_string()
@@ -101,7 +103,16 @@ def generator_deta40(dt, dts_file, gnss_state, bro_state, node_is_enabled):
 
     usart3_tx_dma_channel = usart3.props["tx-dma-channel"].to_string()
     usart3_rx_dma_channel = usart3.props["rx-dma-channel"].to_string()
-    
+
+    # UART4
+    uart4_tx_port = uart4.props["tx-gpio-port"].to_string()
+    uart4_tx_pin  = uart4.props["tx-gpio-pin"].to_string()
+    uart4_rx_port = uart4.props["rx-gpio-port"].to_string()
+    uart4_rx_pin  = uart4.props["rx-gpio-pin"].to_string()
+
+    uart4_tx_dma_channel = uart4.props["tx-dma-channel"].to_string()
+    uart4_rx_dma_channel = uart4.props["rx-dma-channel"].to_string()
+
     #TMR2
     tmr2_clock_freq        = tmr2.props["clock_freq"].to_string()
     tmr2_prescaler_value   = tmr2.props["prescaler_value"].to_string()
@@ -184,6 +195,16 @@ def generator_deta40(dt, dts_file, gnss_state, bro_state, node_is_enabled):
 #define DT_USART3_RX_GPIO_PORT           {usart3_rx_port}
 #define DT_USART3_RX_GPIO_PIN            {usart3_rx_pin}
 
+#define DT_UART4_ENABLED                 {node_is_enabled(uart4)}
+#define DT_UART4_TX_DMA_CHANNEL          {uart4_tx_dma_channel}
+#define DT_UART4_RX_DMA_CHANNEL          {uart4_rx_dma_channel}
+#define DT_UART4_TX_GPIO_PORT            {uart4_tx_port}
+#define DT_UART4_TX_GPIO_PIN             {uart4_tx_pin}
+#define DT_UART4_RX_GPIO_PORT            {uart4_rx_port}
+#define DT_UART4_RX_GPIO_PIN             {uart4_rx_pin}
+
+#define DT_EC600_ENABLED                 {node_is_enabled(ec600)}
+
 #define DT_TMR2_CLOCK_FREQ               {tmr2_clock_freq}
 #define DT_TMR2_PRESCALER_VALUE          {tmr2_prescaler_value}
 #define DT_TMR2_RELOAD_VALUE             {tmr2_auto_reload_value}
@@ -232,7 +253,7 @@ def generator_deta40(dt, dts_file, gnss_state, bro_state, node_is_enabled):
 #define UKF_ZRU_COUNT                         +50
 #define UKF_GYRO_TRUN_ON_LIMIT				  +0.05
 
-#define DT_HardWare_Version                   0x0001030000
+#define DT_HardWare_Version                   0x0001040000
 #define DT_IMU_COUNT                          2
 
 #endif /* DEVICETREE_GENERATED_H */

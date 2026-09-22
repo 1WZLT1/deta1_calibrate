@@ -2,10 +2,11 @@
 #python -m PyInstaller --clean --noconfirm --onefile --console --name devicetree_generator --collect-all devicetree device_tree_py.py 
 from devicetree import dtlib
 from pathlib import Path
-from device_tree_generator_deta1 import generator_deta1
-from device_tree_generator_deta10 import generator_deta10
-from device_tree_generator_deta20 import generator_deta20
-from device_tree_generator_deta40 import generator_deta40
+from device_tree_generator_deta1   import generator_deta1
+from device_tree_generator_deta10  import generator_deta10
+from device_tree_generator_deta20  import generator_deta20
+from device_tree_generator_deta40  import generator_deta40
+from device_tree_generator_deta100 import generator_deta100
 
 import sys
 
@@ -52,6 +53,8 @@ elif dts_name == "deta20":
     header_content = generator_deta20(dt,dts_file,GNSS_Version_is_enabled(GNSS_Version),Bro_Version_is_enabled(Bro_Version),node_is_enabled)
 elif dts_name == "deta40":
     header_content = generator_deta40(dt,dts_file,GNSS_Version_is_enabled(GNSS_Version),Bro_Version_is_enabled(Bro_Version),node_is_enabled)
+elif dts_name == "deta100":
+    header_content = generator_deta100(dt,dts_file,GNSS_Version_is_enabled(GNSS_Version),Bro_Version_is_enabled(Bro_Version),node_is_enabled)
 
 output_file = output_dir / "devicetree_generated.h"
 output_file.write_text(header_content, encoding="utf-8")

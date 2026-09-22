@@ -1,7 +1,7 @@
 .\objects\device.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\src\device.c
 .\objects\device.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\device.o: .\RTE\RTOS\rtconfig.h
-.\objects\device.o: .\RTE\_Deta40_AT32\RTE_Components.h
+.\objects\device.o: .\RTE\_Deta400_AT32\RTE_Components.h
 .\objects\device.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\device.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\device.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

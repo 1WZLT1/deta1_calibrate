@@ -11,11 +11,19 @@
 
 #define IMU_PRIORITY	    4
 
+#if(DT_HardWare_Version != 0x0001040000)
 #define AccChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
 #define GyroChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
 
 #define Acc2ChipToBody(b,c)	   do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
 #define Gyro2ChipToBody(b,c)   do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
+#else 
+#define AccChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
+#define GyroChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
+
+#define Acc2ChipToBody(b,c)	   do{b[0] = -c[0];b[1] = c[1];b[2] = -c[2];}while(0)
+#define Gyro2ChipToBody(b,c)   do{b[0] = -c[0];b[1] = c[1];b[2] = -c[2];}while(0)
+#endif
 
 #define RUN_TASK_FREQ 200
 #define RUN_TASK_PERIOD (1000000/RUN_TASK_FREQ)
@@ -119,7 +127,7 @@ static void Imu_Task_Function(void* parameter)
 			
 			
 		}
-		#elif (DT_HardWare_Version == 0x0001030000)
+		#elif (DT_HardWare_Version == 0x0001030000) || (DT_HardWare_Version == 0x0001040000)
 		{
 			SCH1633_Decode(&SCH1633);
 			accs_1[0] = SCH1633.Accs[0];

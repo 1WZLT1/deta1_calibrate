@@ -3,7 +3,7 @@
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtthread.h
 .\objects\imu_task.o: .\RTE\RTOS\rtconfig.h
-.\objects\imu_task.o: .\RTE\_Deta40_AT32\RTE_Components.h
+.\objects\imu_task.o: .\RTE\_Deta400_AT32\RTE_Components.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdebug.h
 .\objects\imu_task.o: C:\Users\Dell\AppData\Local\Arm\Packs\RealThread\RT-Thread\3.1.2\include\rtdef.h
 .\objects\imu_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

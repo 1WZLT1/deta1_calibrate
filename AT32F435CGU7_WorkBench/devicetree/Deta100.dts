@@ -1,6 +1,6 @@
 /dts-v1/;
 / {
-    deta20
+    deta100
     {
       spi_bus
       {
@@ -23,7 +23,7 @@
               compatible   = "st,lsm6dsrtr";
               cs-gpio-port = "GPIOA";
               cs-gpio-pin  = "GPIO_PINS_15";
-              status       = "disenable";
+              status       = "enable";
             };
 
             iim42652
@@ -31,7 +31,7 @@
               compatible   = "invensense,iim42652";
               cs-gpio-port = "GPIOA";
               cs-gpio-pin  = "GPIO_PINS_15";
-              status       = "enable";
+              status       = "disenable";
             };
 
             spa06-003
@@ -56,9 +56,9 @@
             miso-gpio-pin  = "GPIO_PINS_14";
             status         = "enable";
 
-            XV7011
+            scha1633
             {
-              compatible   = "epson,xv7011";
+              compatible   = "murata,scha1633";
               cs-gpio-port = "GPIOA";
               cs-gpio-pin  = "GPIO_PINS_11";
               status       = "enable";
@@ -132,8 +132,28 @@
 
           status         = "enable";
         };
+
+        uart4
+        {
+          peripheral     = "USART4";
+          tx-dma-channel = "DMA2_CHANNEL7";
+          rx-dma-channel = "DMA2_CHANNEL6";
+
+          tx-gpio-port   = "GPIOA";
+          tx-gpio-pin    = "GPIO_PINS_0";
+          rx-gpio-port   = "GPIOA";
+          rx-gpio-pin    = "GPIO_PINS_1";
+
+          status         = "enable";
+
+            ec600
+            {
+              compatible   = "quectel,ec600-cn";
+              status       = "enable";
+            };
+        };
       };
-      
+
       tmr
       {
         tmr2
