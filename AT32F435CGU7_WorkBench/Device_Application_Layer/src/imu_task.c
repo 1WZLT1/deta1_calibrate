@@ -9,7 +9,7 @@
 #include "at32f435_437_int.h"
 #include "rtthread.h"
 
-#define IMU_PRIORITY	    9
+#define IMU_PRIORITY	    4
 
 #define AccChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
 #define GyroChipToBody(b,c)	  do{b[0] = c[1];b[1] = c[0];b[2] = -c[2];}while(0)
@@ -36,6 +36,10 @@ uint8_t Imu_Task_Stack[2048];
 static struct rt_thread Imu_Task;
 struct rt_semaphore imuSensor;
 
+uint64_t last_dt = 0;
+uint64_t now_dt  = 0;
+uint64_t space   = 0;
+
 static void Imu_Task_Function(void* parameter)
 {
 	while(1)
@@ -44,6 +48,10 @@ static void Imu_Task_Function(void* parameter)
 		float accs_1[3];
 		float gyros_1[3];
 		float temperature_1;
+
+		now_dt = Micros();
+		space = now_dt - last_dt;
+		last_dt = now_dt;
 		
 		#if IMU_COUNT >= 2
 		float accs_2[3];
@@ -54,6 +62,7 @@ static void Imu_Task_Function(void* parameter)
 		__set_PRIMASK(1);
 		
 		#if (DT_HardWare_Version == 0x0001000000)
+		LSM6DSR_Decode(&LSM6DSR);
 		{
 			accs_1[0]  = lsm6dsr_out.acc_x;
 			accs_1[1]  = lsm6dsr_out.acc_y;
@@ -66,13 +75,14 @@ static void Imu_Task_Function(void* parameter)
 		#elif (DT_HardWare_Version == 0x0001010000)
 		{
 			#if (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
-				accs_1[0]  = lsm6dsr_out.acc_x;
-				accs_1[1]  = lsm6dsr_out.acc_y;
-				accs_1[2]  = lsm6dsr_out.acc_z;
-				gyros_1[0] = lsm6dsr_out.gyro_x;
-				gyros_1[1] = lsm6dsr_out.gyro_y;
-				gyros_1[2] = lsm6dsr_out.gyro_z;
-				temperature_1 = lsm6dsr_out.temp;
+				LSM6DSR_Decode(&LSM6DSR);
+				accs_1[0]     = LSM6DSR.Accs[0] ;
+				accs_1[1]     = LSM6DSR.Accs[1] ;
+				accs_1[2]     = LSM6DSR.Accs[2] ;
+				gyros_1[0]    = LSM6DSR.Gyros[0];
+				gyros_1[1]    = LSM6DSR.Gyros[1];
+				gyros_1[2]    = LSM6DSR.Gyros[2];
+				temperature_1 = LSM6DSR.Temp    ;
 			#elif (DT_IIM42652_ENABLED == 1)
 				accs_1[0]  = ICM42688_BufferData.Accs[0];
 				accs_1[1]  = ICM42688_BufferData.Accs[1];
@@ -111,25 +121,28 @@ static void Imu_Task_Function(void* parameter)
 		}
 		#elif (DT_HardWare_Version == 0x0001030000)
 		{
-			accs_1[0] = sch16t_out.acc_x;
-			accs_1[1] = sch16t_out.acc_y;
-			accs_1[2] = sch16t_out.acc_z;
+			SCH1633_Decode(&SCH1633);
+			accs_1[0] = SCH1633.Accs[0];
+			accs_1[1] = SCH1633.Accs[1];
+			accs_1[2] = SCH1633.Accs[2];
 			
-			gyros_1[0] = sch16t_out.gyro_x * DEG_TO_RAD;
-			gyros_1[1] = sch16t_out.gyro_y * DEG_TO_RAD;
-			gyros_1[2] = sch16t_out.gyro_z * DEG_TO_RAD;
+			gyros_1[0] = SCH1633.Gyros[0] * DEG_TO_RAD;
+			gyros_1[1] = SCH1633.Gyros[1] * DEG_TO_RAD;
+			gyros_1[2] = SCH1633.Gyros[2] * DEG_TO_RAD;
 		
-			temperature_1 = sch16t_out.temp;
+			temperature_1 = SCH1633.Temp;
 			
 			#if (DT_LSM6DS3TR_ENABLED == 1 || DT_LSM6DSRTR_ENABLED == 1)
-			accs_2[0]  = lsm6dsr_out.acc_x;
-			accs_2[1]  = lsm6dsr_out.acc_y;
-			accs_2[2]  = lsm6dsr_out.acc_z;
-			gyros_2[0] = lsm6dsr_out.gyro_x;
-			gyros_2[1] = lsm6dsr_out.gyro_y;
-			gyros_2[2] = lsm6dsr_out.gyro_z;
 			
-			temperature_2 = lsm6dsr_out.temp;
+			LSM6DSR_Decode(&LSM6DSR);
+			accs_2[0]  = LSM6DSR.Accs[0];
+			accs_2[1]  = LSM6DSR.Accs[1];
+			accs_2[2]  = LSM6DSR.Accs[2];
+			gyros_2[0] = LSM6DSR.Gyros[0];
+			gyros_2[1] = LSM6DSR.Gyros[1];
+			gyros_2[2] = LSM6DSR.Gyros[2];
+			
+			temperature_1 = LSM6DSR.Temp;
 			
 			#elif (DT_IIM42652_ENABLED == 1)
 			accs_2[0] = ICM42688_BufferData.Accs[0];
@@ -273,6 +286,7 @@ static void Imu_Task_Function(void* parameter)
 		imuData.lastUpdate = this_time;
 	}
 }
+
 
 static volatile int IMUInit_Count = 0;
 void IMU_Handler()

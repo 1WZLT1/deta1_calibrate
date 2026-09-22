@@ -67,6 +67,10 @@ void LSM6DSR_Conversion(uint8_t *Data_Receive)
   RawBuffer_Input(&LSM6DSR.BufGyroY, lsm6dsr_out.gyro_y);
   RawBuffer_Input(&LSM6DSR.BufGyroZ, lsm6dsr_out.gyro_z);
 
+	now_us= Micros();
+	Interval_us = now_us - last_us;
+	last_us = now_us;
+	
   RawBuffer_Input(&LSM6DSR.BufTemp, lsm6dsr_out.temp);
 	__set_PRIMASK(primask);
 }
@@ -75,13 +79,13 @@ int LSM6DSR_Decode(LSM6DSR_Status_Type* LSM6DSR)
 {
 	int primask = __get_PRIMASK();
 	__set_PRIMASK(1);
-	LSM6DSR->Accs[0] = RawBuffer_Output(&LSM6DSR->BufAccX);
-	LSM6DSR->Accs[1] = RawBuffer_Output(&LSM6DSR->BufAccY);
-	LSM6DSR->Accs[2] = RawBuffer_Output(&LSM6DSR->BufAccZ);
+	LSM6DSR->Accs[0]  = RawBuffer_Output(&LSM6DSR->BufAccX);
+	LSM6DSR->Accs[1]  = RawBuffer_Output(&LSM6DSR->BufAccY);
+	LSM6DSR->Accs[2]  = RawBuffer_Output(&LSM6DSR->BufAccZ);
 	LSM6DSR->Gyros[0] = RawBuffer_Output(&LSM6DSR->BufGyroX);
 	LSM6DSR->Gyros[1] = RawBuffer_Output(&LSM6DSR->BufGyroY);
 	LSM6DSR->Gyros[2] = RawBuffer_Output(&LSM6DSR->BufGyroZ);
-	LSM6DSR->Temp = RawBuffer_Output(&LSM6DSR->BufTemp);
+	LSM6DSR->Temp     = RawBuffer_Output(&LSM6DSR->BufTemp);
 	
 	if(LSM6DSR_Initial)
 	{
@@ -204,8 +208,9 @@ void LSM6DR_INT1_DRDY()
 	
 	uint8_t INT1_CTRL_Register;
 	LSM6DR_Read_Reg(LSM6DSR_INT1_CTRL,&INT1_CTRL_Register,2);	
+	
 	#if(1)
-	INT1_CTRL_Register = (0x01);
+	INT1_CTRL_Register = (0x01 << 1);
 	#else
 	INT1_CTRL_Register = (0x01 << 7);
 	#endif
@@ -255,6 +260,7 @@ void LM6DR_DEN_DRDY()
 	#endif
 }
 
+uint8_t CTRL2_XL_Register_CK;
 void LM6DR_RANGE_CONFIG()
 {
 	uint8_t CTRL2_XL_Register;
@@ -262,6 +268,8 @@ void LM6DR_RANGE_CONFIG()
 	CTRL2_XL_Register &= ~(0x03 << 2);
 	CTRL2_XL_Register |=  (0x03 << 2);//8g
 	LSM6DR_Write_Reg(LSM6DSR_CTRL1_XL,CTRL2_XL_Register,2);
+	
+	LSM6DR_Read_Reg(LSM6DSR_CTRL1_XL,&CTRL2_XL_Register_CK,2);
 	
 	uint8_t CTRL2_G_Register;
 	LSM6DR_Read_Reg(LSM6DSR_CTRL2_G,&CTRL2_G_Register,2);	
@@ -325,22 +333,35 @@ void LSM6DR_GYRO_LPF_CONFIG()
 {
 	uint8_t CTRL4_Register;
 	LSM6DR_Read_Reg(LSM6DSR_CTRL4_C,&CTRL4_Register,2);	
-	CTRL4_Register &= ~(0x01 << 1);//¹Ø±ÕÍÓÂÝµÍÍ¨
+	CTRL4_Register |= (0x01 << 1);//¿ªÆôÍÓÂÝµÍÍ¨
 	LSM6DR_Write_Reg(LSM6DSR_CTRL4_C,CTRL4_Register,2);
+	
+	uint8_t CTRL6_Register;
+	LSM6DR_Read_Reg(LSM6DSR_CTRL6_C,&CTRL6_Register,2);
+	CTRL6_Register &= ~(0x07U); 
+	CTRL6_Register |= (0x03);
+	LSM6DR_Write_Reg(LSM6DSR_CTRL6_C,CTRL6_Register,2);
+	
+	uint8_t CTRL7_Register;
+	LSM6DR_Read_Reg(LSM6DSR_CTRL7_G,&CTRL7_Register,2);
+	CTRL7_Register &= ~(0x01 << 7);
+	LSM6DR_Write_Reg(LSM6DSR_CTRL7_G,CTRL7_Register,2);
+
 }
 
 uint8_t STATUS_REG;
-uint8_t LSM6DSR_STATUS_READ()
+void LSM6DSR_STATUS_READ()
 {
 	LSM6DR_Read_Reg(LSM6DSR_STATUS_REG,&STATUS_REG,2);	
 }
+
 void LSM6DSR_Init()
 {
 	LSM6DR_Write_Reg(LSM6DSR_CTRL3_C,0x01,2);//rest
 	rt_thread_delay(15);
 	
 	LSM6DR_Read_Reg(LSM6DSR_WHO_AM_I,&whoamI,2);
-	if(whoamI != 0x6a)return;
+	if(whoamI != 0x6b)return;
 	LSM6DSR_I3C_Disable();
 	LSM6DR_SPI4Write();
 	LSM6DR_Updata();

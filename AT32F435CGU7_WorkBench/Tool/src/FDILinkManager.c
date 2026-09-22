@@ -87,6 +87,7 @@ FDILink_t FDILink_Handle;
 struct rt_semaphore imuSensorPack;
 uint16_t rawdata_task_cnt = 1;
 
+
 void FDILinkSend_RAWData(uint64_t time)
 {
 	#if (USE_EXRAWDATA == 1)
@@ -135,7 +136,7 @@ void FDILinkSend_RAWData(uint64_t time)
 	FDIData.RawData.Timestamp = time;
 	ALIGN(8) static uint8_t fdi_buffer[256];
 	FDILink_Pack(fdi_buffer, &FDILink_Handle, 0xF3, (uint8_t*)&FDIData.RawData, sizeof(FDILink_RawData));
-	if(rawdata_task_cnt++ == 2)
+	if(1)
 	{
 		rawdata_task_cnt = 1;
 		Queue_Input(&FDIData.TxQueue,(void*)fdi_buffer, sizeof(FDILink_RawData) + 8);

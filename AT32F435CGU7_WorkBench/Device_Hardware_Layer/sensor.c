@@ -36,10 +36,14 @@ void RawBuffer_Input(RawBuffer_t* buffer, float value)
 	}
 }
 
+uint16_t ck[512],i;
 float RawBuffer_Output(RawBuffer_t* buffer)
 {
 	if (buffer->value_count > 0)
 	{
+		ck[i] = buffer->value_count;
+		if(i++ == 512) i =0;
+		
 		float result = buffer->value_sum / buffer->value_count;
 		buffer->value_sum = 0;
 		buffer->value_count = 0;

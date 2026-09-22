@@ -126,7 +126,7 @@ void wk_tmr2_init(void)
   tmr_cnt_dir_set(TMR2, TMR_COUNT_UP);
   tmr_clock_source_div_set(TMR2, TMR_CLOCK_DIV1);
   tmr_period_buffer_enable(TMR2, FALSE);
-  tmr_base_init(TMR2, 2499, 287);
+  tmr_base_init(TMR2, 4999, 287);
 
   /* configure primary mode settings */
   tmr_sub_sync_mode_set(TMR2, FALSE);

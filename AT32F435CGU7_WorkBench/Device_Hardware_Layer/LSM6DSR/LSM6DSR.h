@@ -1736,7 +1736,7 @@ typedef struct {
 #define LSM6DSR_CS_disenable         gpio_bits_write(GPIOA,GPIO_PINS_15,TRUE);
 
 #define AccScale (9.7947f * 8.0f / 32768.0f) 
-#define GyroScale ((3.1415926f * 2000.0f / 180.0f) / 32768.0f) 
+#define GyroScale 0.07f * 3.1415926f / 180.0f 
 
 void LSM6DSR_Init(void);
 void LSM6DSR_callback(rtio_t *rtio);

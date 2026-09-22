@@ -152,10 +152,10 @@ int SCH1633_Decode(SCH1633_Status_Type* SCH1633)
 	__set_PRIMASK(1);
 	SCH1633->Accs[0]  = RawBuffer_Output(&SCH1633->BufAccX);
 	SCH1633->Accs[1]  = RawBuffer_Output(&SCH1633->BufAccY);
-	SCH1633->Accs[2]  = RawBuffer_Output(&SCH1633->BufAccZ)*(-1);
-	SCH1633->Gyros[0] = RawBuffer_Output(&SCH1633->BufGyroX)*DEG_TO_RAD;
-	SCH1633->Gyros[1] = RawBuffer_Output(&SCH1633->BufGyroY)*(-1)*DEG_TO_RAD;
-	SCH1633->Gyros[2] = RawBuffer_Output(&SCH1633->BufGyroZ)*DEG_TO_RAD;
+	SCH1633->Accs[2]  = RawBuffer_Output(&SCH1633->BufAccZ);
+	SCH1633->Gyros[0] = RawBuffer_Output(&SCH1633->BufGyroX);
+	SCH1633->Gyros[1] = RawBuffer_Output(&SCH1633->BufGyroY);
+	SCH1633->Gyros[2] = RawBuffer_Output(&SCH1633->BufGyroZ);
 	SCH1633->Temp = RawBuffer_Output(&SCH1633->BufTemp);
 	
 	if(SCH1633_Initial)
